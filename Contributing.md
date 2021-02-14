@@ -66,7 +66,7 @@ $ git push -u origin <Branch_Name>
 ```  
 
 ## Step 6 : Pull Request  🎣
-- Go to your repository in browser and click on compare and pull requests.
+- Go to your repository in browser and click on compare and pull requests. notice the arrow direction and repository names.
 ![pull 2](https://github.com/Dragsters/Nutrihelp/blob/master/assets/pull_2.png)
 Then fill the mandatory details according to given template.
 
