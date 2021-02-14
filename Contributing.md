@@ -32,7 +32,7 @@ $ git clone https://github.com/Dragsters/Nutrihelp.git
 ## Step 2 : Branch  🔖
 Create a new branch with the issue name to identify the issue your addressing.  
 <br>example - you are assigned issue 21
-<br>create a new branch with name issue-21
+<br>create a new branch with name issue-21<br>
 ![branch](./assets/branch.png)
 
 on local switch to that branch 
