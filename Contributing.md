@@ -3,77 +3,78 @@
 This documentation contains a set of guidelines to help you during the contribution process.   
 Thank you for helping out and remember, **no contribution is too small.**  
   
-# Submitting Contributions👩‍💻👨‍💻  
+# Submitting Contributions👩‍💻
 Below you will find the process and workflow used to review and merge your changes.  
+<br>You should have git installed in your pc for these steps.
 
-## Step 0 : Fork the Project 🍴
+## Step 0 : Fork and clone the Project 🍴
 - Fork this Repository. This will create a Local Copy of this Repository on your Github Profile.
+![fork](https://github.com/Dragsters/Nutrihelp/blob/master/assets/fork.png)  
 
 - If you have already forked the project, update your fork before working.
-<br> create a pull request from 
-  
-```  
+<br> create and merge a pull request to push changes from this repository to your fork.
+![pull request](https://github.com/Dragsters/Nutrihelp/blob/master/assets/pull_request.png)
+the direction of arrow shows the code pushing direction. always name this pull request as **Fork Sync**
+![arrow direction](https://github.com/Dragsters/Nutrihelp/blob/master/assets/arrow_direction.png)  
+```bash
 $ git remote update  
 $ git checkout <branch-name>  
-$ git rebase upstream/<branch-name>  
 ```  
+to clone the project, open cmd where you want to place your project.
+```bash
+$ git clone https://github.com/Dragsters/Nutrihelp.git
+```
 ## Step 1 : Find an issue  🔍
-- Take a look at the Existing Issues or create your **own** Issues!  
+- Take a look at the **Existing Issues** or create your **own Issues!**  
 - Wait for the Issue to be assigned to you after which you can start working on it.  
 - Note : Every change in this project should/must have an associated issue.   
-![issue](https://github.com/kanishkaa24/Athavani/blob/master/Untitled%20design%20(2).png)  
   
-
 ## Step 2 : Branch  🔖
-Create a new branch. Use its name to identify the issue your addressing.  
-```  
-# It will create a new branch with name Branch_Name and switch to that branch 
-$ git checkout -b branch_name  
-```  
+Create a new branch with the issue name to identify the issue your addressing.  
+<br>example - you are assigned issue 21
+<br>create a new branch with name issue-21
+![branch](https://github.com/Dragsters/Nutrihelp/blob/master/assets/branch.png)
+on local switch to that branch 
+```bash  
+$ git checkout origin/issue-21
+```
+
 ## Step 3 : Work on the issue assigned  📕
 - Work on the issue(s) assigned to you.   
 - Add all the files/folders needed.  
 - After you've made changes or made your contribution to the project add changes to the branch you've just created by:  
-```  
+```bash
 # To add all new files to branch Branch_Name  
 $ git add .  
 
-# To add only a few files to Branch_Name
-$ git add <some files>
 ```
   
 ## Step 4 : Commit  
 - To commit give a descriptive message for the convenience of reviewer by:  
-```
+```bash
 # This message get associated with all files you have changed  
 $ git commit -m "message"  
 ```  
-- **NOTE**: A PR should have only one commit. Multiple commits should be squashed. 
+- **NOTE**: A PR should have only one commit. Multiple commits will be squashed. 
  
 ## Step 5 : Work Remotely  
-- Now you are ready to your work to the remote repository.  
 - When your work is ready and complies with the project conventions, upload your changes to your fork:  
   
+```bash
+# To push your work to your fork repository  
+$ git push -u origin <Branch_Name>
 ```  
-# To push your work to your remote repository  
-$ git push -u origin Branch_Name  
-```  
-- Here is how your branch will look.  
-![br](https://github.com/kanishkaa24/Athavani/blob/master/Untitled%20design%20(4).png)  
-  
+
 ## Step 6 : Pull Request  🎣
-- Go to your repository in browser and click on compare and pull requests. Then add a title and description to your pull request that explains your contribution.  
-![pullrequest](https://github.com/kanishkaa24/Athavani/blob/master/Untitled%20design%20(5).png) 
-- Voila! Your Pull Request has been submitted and will be reviewed by the moderators and merged.🥳  
+- Go to your repository in browser and click on compare and pull requests. notice the arrow direction and repository names.
+![pull 2](https://github.com/Dragsters/Nutrihelp/blob/master/assets/pull_2.png)
+Then fill the mandatory details according to given template.
+
+- Voila! Your Pull Request has been submitted and will be reviewed and merged.🥳  
   
 ## Need more help?🤔  
-You can refer to the following articles on basics of Git and Github and also contact the Project Mentors, in case you are stuck:  
-- [Forking a Repo](https://help.github.com/en/github/getting-started-with-github/fork-a-repo)  
-- [Cloning a Repo](https://help.github.com/en/desktop/contributing-to-projects/creating-an-issue-or-pull-request)  
-- [How to create a Pull Request](https://opensource.com/article/19/7/create-pull-request-github)  
-- [Getting started with Git and GitHub](https://towardsdatascience.com/getting-started-with-git-and-github-6fcd0f2d4ac6)  
-- [Learn GitHub from Scratch](https://lab.github.com/githubtraining/introduction-to-github)  
-  
-  
+watch youtube. Kuch nhi ho sakta tumhara.  
+
 ## Tip from us😇  
-It always takes time to understand and learn. So, do not worry at all. We know **you have got this**!💪
+- we always recommend to use gui tools which came with IDE and editors for using git.
+- It always takes time to understand and learn. So, do not worry at all.
