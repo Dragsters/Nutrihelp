@@ -42,7 +42,7 @@ An app for all those who care about their health.
 - Commit and push your changes
 - Create a Pull Request which will be promptly reviewed and suggestions would be added to improve it.
 - Add Screenshots to help us know what this Script is all about.
-- For more details visit the [Contribution Guide](https://github.com/Dragsters/Nutrihelp/blob/master/CONTRIBUTING.md)
+- For more details visit the [Contribution Guide](https://github.com/Dragsters/Nutrihelp/blob/main/Contributing.md)
 
 <br>
 

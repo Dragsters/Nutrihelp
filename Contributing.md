@@ -9,13 +9,14 @@ Below you will find the process and workflow used to review and merge your chang
 
 ## Step 0 : Fork and clone the Project 🍴
 - Fork this Repository. This will create a Local Copy of this Repository on your Github Profile.
-![fork](https://github.com/Dragsters/Nutrihelp/blob/master/assets/fork.png)  
+
+<img src="./assets/fork.png">
 
 - If you have already forked the project, update your fork before working.
 <br> create and merge a pull request to push changes from this repository to your fork.
-![pull request](https://github.com/Dragsters/Nutrihelp/blob/master/assets/pull_request.png)
+![pull request](./assets/pull_request.png)
 the direction of arrow shows the code pushing direction. always name this pull request as **Fork Sync**
-![arrow direction](https://github.com/Dragsters/Nutrihelp/blob/master/assets/arrow_direction.png)  
+![arrow direction](./assets/arrow_direction.png)  
 ```bash
 $ git remote update  
 $ git checkout <branch-name>  
@@ -32,11 +33,15 @@ $ git clone https://github.com/Dragsters/Nutrihelp.git
 ## Step 2 : Branch  🔖
 Create a new branch with the issue name to identify the issue your addressing.  
 <br>example - you are assigned issue 21
-<br>create a new branch with name issue-21
-![branch](https://github.com/Dragsters/Nutrihelp/blob/master/assets/branch.png)
+
+<br>create a new branch with name issue-21<br>
+![branch](./assets/branch.png)
+
 on local switch to that branch 
 ```bash  
 $ git checkout origin/issue-21
+# OR
+$ git checkout issue-21
 ```
 
 ## Step 3 : Work on the issue assigned  📕
@@ -67,7 +72,8 @@ $ git push -u origin <Branch_Name>
 
 ## Step 6 : Pull Request  🎣
 - Go to your repository in browser and click on compare and pull requests. notice the arrow direction and repository names.
-![pull 2](https://github.com/Dragsters/Nutrihelp/blob/master/assets/pull_2.png)
+
+![pull 2](./assets/pull_2.png)
 Then fill the mandatory details according to given template.
 
 - Voila! Your Pull Request has been submitted and will be reviewed and merged.🥳  
