@@ -9,6 +9,7 @@ Below you will find the process and workflow used to review and merge your chang
 
 ## Step 0 : Fork and clone the Project 🍴
 - Fork this Repository. This will create a Local Copy of this Repository on your Github Profile.
+
 <img src="./assets/fork.png">
 
 - If you have already forked the project, update your fork before working.
@@ -32,6 +33,7 @@ $ git clone https://github.com/Dragsters/Nutrihelp.git
 ## Step 2 : Branch  🔖
 Create a new branch with the issue name to identify the issue your addressing.  
 <br>example - you are assigned issue 21
+
 <br>create a new branch with name issue-21<br>
 ![branch](./assets/branch.png)
 
@@ -70,6 +72,7 @@ $ git push -u origin <Branch_Name>
 
 ## Step 6 : Pull Request  🎣
 - Go to your repository in browser and click on compare and pull requests. notice the arrow direction and repository names.
+
 ![pull 2](./assets/pull_2.png)
 Then fill the mandatory details according to given template.
 
