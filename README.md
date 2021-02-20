@@ -37,7 +37,7 @@ An app for all those who care about their health.
 - Fork the repository
 - Take a look at the Existing [Issues](https://github.com/Dragsters/Nutrihelp/issues) or create your own Issues!
 - Wait for the Issue to be assigned to you after which you can start working on it.
-- Fork the Repo and create a Branch with the name of Issue that you are working upon.
+- Create a Branch with the name of Issue that you are working upon.
 - Switch to that branch and start writing your code.
 - Commit and push your changes
 - Create a Pull Request which will be promptly reviewed and suggestions would be added to improve it.
