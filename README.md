@@ -45,6 +45,7 @@ An app for all those who care about their health.
 - For more details visit the [Contribution Guide](https://github.com/Dragsters/Nutrihelp/blob/main/Contributing.md)
 
 <br>
+
 __Note__ : 
 - If no response is recieved from you within 7 days of assigning the issue, then the issue will be unassigned.
 - If an issue doesn't gets assignee within 7 days, it will get assigned to the maintainer of repository
