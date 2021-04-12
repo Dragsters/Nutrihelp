@@ -1,6 +1,6 @@
 ---
 name: Bug or Issue
-about: This template helps to provide structure for any issue
+about: Suggest an Implementation, Bug, or another issue
 title: "[Fix]"
 labels: ''
 assignees: ''
