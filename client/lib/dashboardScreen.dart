@@ -15,86 +15,96 @@ class DashBoardScreen extends StatelessWidget {
       'about us',
       'logout'
     ];
+    // background: linear-gradient(167.83deg, #A6E97C 3.71%, #F4F4F4 100%);
+
     double deviceWidth = MediaQuery.of(context).size.width;
     double deviceHeight = MediaQuery.of(context).size.height;
-    return Scaffold(
-      resizeToAvoidBottomInset: false,
-      backgroundColor: Color(0xffcaeeb4),
-      body: Stack(
-        alignment: AlignmentDirectional.topCenter,
-        children: [
-          ClipPath(
-              clipper: OvalBottomBorderClipper(),
-              child: Container(
-                height: deviceHeight * 0.35,
-                width: deviceWidth,
-                color: Color(0xff05483f),
-              )),
-          Positioned(
-            top: deviceHeight * 0.16,
-            child: Container(
-                width: deviceWidth * 0.9,
-                child: TextField(
-                  decoration: InputDecoration(
-                    focusColor: Colors.white,
-                    hoverColor: Colors.white,
-                    hintText: 'Search',
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(20)),
-                    filled: true,
-                    fillColor: Colors.white,
-                    contentPadding: EdgeInsets.only(
-                      left: deviceWidth * 0.04,
-                    ),
-                  ),
+    return Container(
+      decoration: BoxDecoration(
+          gradient: LinearGradient(
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+              colors: [Color(0xffA6E97C), Color(0xffF4F4F4)])),
+      child: Scaffold(
+        resizeToAvoidBottomInset: false,
+        backgroundColor: Colors.transparent,
+        body: Stack(
+          alignment: AlignmentDirectional.topCenter,
+          children: [
+            ClipPath(
+                clipper: OvalBottomBorderClipper(),
+                child: Container(
+                  height: deviceHeight * 0.35,
+                  width: deviceWidth,
+                  color: Color(0xff05483f),
                 )),
-          ),
-          Positioned(
-              top: deviceHeight * 0.09,
-              child: Text('NutriHelp',
-                  style: GoogleFonts.redressed(
-                      textStyle: TextStyle(
-                          color: Colors.white, fontSize: deviceWidth * 0.1)))),
-          Column(
-            children: [
-              SizedBox(
-                height: deviceHeight * 0.2,
-              ),
-              Container(
-                height: deviceHeight * 0.75,
-                width: deviceWidth * 0.9,
-                child: GridView.builder(
-                    itemCount: 6,
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2,
-                      childAspectRatio:
-                          ((MediaQuery.of(context).size.width) * 4) /
-                              (MediaQuery.of(context).size.height) /
-                              2,
+            Positioned(
+              top: deviceHeight * 0.16,
+              child: Container(
+                  width: deviceWidth * 0.9,
+                  child: TextField(
+                    decoration: InputDecoration(
+                      focusColor: Colors.white,
+                      hoverColor: Colors.white,
+                      hintText: 'Search',
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(20)),
+                      filled: true,
+                      fillColor: Colors.white,
+                      contentPadding: EdgeInsets.only(
+                        left: deviceWidth * 0.04,
+                      ),
                     ),
-                    itemBuilder: (BuildContext context, int index) {
-                      return GestureDetector(
-                          onTap: () {},
-                          child: Card(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(20),
-                            ),
-                            elevation: 3.0,
-                            child: Container(
-                              height: deviceHeight * 0.07,
-                              width: deviceWidth * 0.1,
-                              child: Center(
-                                child: Text(
-                                  tilesTitle[index],
+                  )),
+            ),
+            Positioned(
+                top: deviceHeight * 0.09,
+                child: Text('NutriHelp',
+                    style: GoogleFonts.redressed(
+                        textStyle: TextStyle(
+                            color: Colors.white,
+                            fontSize: deviceWidth * 0.1)))),
+            Column(
+              children: [
+                SizedBox(
+                  height: deviceHeight * 0.2,
+                ),
+                Container(
+                  height: deviceHeight * 0.75,
+                  width: deviceWidth * 0.9,
+                  child: GridView.builder(
+                      itemCount: 6,
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        childAspectRatio:
+                            ((MediaQuery.of(context).size.width) * 4) /
+                                (MediaQuery.of(context).size.height) /
+                                2,
+                      ),
+                      itemBuilder: (BuildContext context, int index) {
+                        return GestureDetector(
+                            onTap: () {},
+                            child: Card(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(20),
+                              ),
+                              elevation: 3.0,
+                              child: Container(
+                                height: deviceHeight * 0.07,
+                                width: deviceWidth * 0.1,
+                                child: Center(
+                                  child: Text(
+                                    tilesTitle[index],
+                                  ),
                                 ),
                               ),
-                            ),
-                          ));
-                    }),
-              ),
-            ],
-          ),
-        ],
+                            ));
+                      }),
+                ),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }
