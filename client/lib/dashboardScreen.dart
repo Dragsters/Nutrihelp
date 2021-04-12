@@ -18,6 +18,7 @@ class DashBoardScreen extends StatelessWidget {
     double deviceWidth = MediaQuery.of(context).size.width;
     double deviceHeight = MediaQuery.of(context).size.height;
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       backgroundColor: Color(0xffcaeeb4),
       body: Stack(
         alignment: AlignmentDirectional.topCenter,
@@ -30,11 +31,30 @@ class DashBoardScreen extends StatelessWidget {
                 color: Color(0xff05483f),
               )),
           Positioned(
-              top: deviceHeight * 0.1,
-              child: Text('NutriHelp',
-                  style: GoogleFonts.redressed(
-                      textStyle: TextStyle(
-                          color: Colors.white, fontSize: deviceWidth * 0.1)))),
+            top: deviceHeight * 0.16,
+            child: Container(
+                width: deviceWidth * 0.9,
+                child: TextField(
+                  decoration: InputDecoration(
+                    focusColor: Colors.white,
+                    hoverColor: Colors.white,
+                    hintText: 'Search',
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(20)),
+                    filled: true,
+                    fillColor: Colors.white,
+                    contentPadding: EdgeInsets.only(
+                      left: deviceWidth * 0.04,
+                    ),
+                  ),
+                )),
+          ),
+          // Positioned(
+          //     top: deviceHeight * 0.09,
+          //     child: Text('NutriHelp',
+          //         style: GoogleFonts.redressed(
+          //             textStyle: TextStyle(
+          //                 color: Colors.white, fontSize: deviceWidth * 0.1)))),
           Column(
             children: [
               SizedBox(
