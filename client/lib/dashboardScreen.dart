@@ -15,7 +15,6 @@ class DashBoardScreen extends StatelessWidget {
       'about us',
       'logout'
     ];
-    // background: linear-gradient(167.83deg, #A6E97C 3.71%, #F4F4F4 100%);
 
     double deviceWidth = MediaQuery.of(context).size.width;
     double deviceHeight = MediaQuery.of(context).size.height;
