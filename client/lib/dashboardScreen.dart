@@ -49,12 +49,12 @@ class DashBoardScreen extends StatelessWidget {
                   ),
                 )),
           ),
-          // Positioned(
-          //     top: deviceHeight * 0.09,
-          //     child: Text('NutriHelp',
-          //         style: GoogleFonts.redressed(
-          //             textStyle: TextStyle(
-          //                 color: Colors.white, fontSize: deviceWidth * 0.1)))),
+          Positioned(
+              top: deviceHeight * 0.09,
+              child: Text('NutriHelp',
+                  style: GoogleFonts.redressed(
+                      textStyle: TextStyle(
+                          color: Colors.white, fontSize: deviceWidth * 0.1)))),
           Column(
             children: [
               SizedBox(
