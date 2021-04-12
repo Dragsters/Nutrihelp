@@ -32,8 +32,9 @@ class DashBoardScreen extends StatelessWidget {
           Positioned(
               top: deviceHeight * 0.1,
               child: Text('NutriHelp',
-                  style: TextStyle(
-                      color: Colors.white, fontSize: deviceWidth * 0.1))),
+                  style: GoogleFonts.redressed(
+                      textStyle: TextStyle(
+                          color: Colors.white, fontSize: deviceWidth * 0.1)))),
           Column(
             children: [
               SizedBox(
@@ -63,7 +64,9 @@ class DashBoardScreen extends StatelessWidget {
                               height: deviceHeight * 0.07,
                               width: deviceWidth * 0.1,
                               child: Center(
-                                child: Text(tilesTitle[index]),
+                                child: Text(
+                                  tilesTitle[index],
+                                ),
                               ),
                             ),
                           ));
