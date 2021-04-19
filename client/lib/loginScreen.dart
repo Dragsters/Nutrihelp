@@ -106,13 +106,12 @@ class _LoginScreenState extends State<LoginScreen> {
                                   cursorColor: Colors.black,
                                   pinTheme: PinTheme(
                                     shape: PinCodeFieldShape.box,
-                                    borderRadius: BorderRadius.circular(5),
+                                    borderRadius: BorderRadius.circular(10),
                                     fieldWidth: deviceWidth * 0.15,
                                     selectedFillColor: Colors.white,
                                     // selectedColor: colors,
                                     inactiveColor: Colors.white,
                                     disabledColor: Colors.white,
-
                                     borderWidth: 1.5,
                                     inactiveFillColor: Colors.white,
                                   ),
@@ -120,6 +119,25 @@ class _LoginScreenState extends State<LoginScreen> {
                               )
                             ],
                           )),
+                      SizedBox(
+                        height: deviceHeight * 0.025,
+                      ),
+                      TextButton(
+                        onPressed: () {},
+                        child: Text(
+                          'LOGIN',
+                          style: TextStyle(fontSize: deviceWidth * 0.051),
+                        ),
+                        style: TextButton.styleFrom(
+                          primary: Colors.white,
+                          minimumSize:
+                              Size(deviceWidth * 0.25, deviceHeight * 0.07),
+                          shape: const RoundedRectangleBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(15)),
+                          ),
+                          backgroundColor: Color(0xff05483F),
+                        ),
+                      )
                     ],
                   )),
             ],
