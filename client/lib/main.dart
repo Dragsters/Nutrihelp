@@ -13,7 +13,11 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Nutrihelp',
+<<<<<<< HEAD
       home: LoginScreen(),
+=======
+      home: DashBoardScreen()
+>>>>>>> e700ff5b8fa4241e7d506de75333feea2f800a33
     );
   }
 }
