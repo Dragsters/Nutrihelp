@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:pin_code_fields/pin_code_fields.dart';
 
 class LoginScreen extends StatefulWidget {
   LoginScreen({Key key}) : super(key: key);
@@ -9,6 +10,8 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  final _formKey = GlobalKey<FormState>();
+  String currentText = "";
   @override
   Widget build(BuildContext context) {
     double deviceWidth = MediaQuery.of(context).size.width;
@@ -77,6 +80,46 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                         ),
                       ),
+                      SizedBox(
+                        height: deviceHeight * 0.03,
+                      ),
+                      Form(
+                          key: _formKey,
+                          child: Column(
+                            children: [
+                              Container(
+                                height: 50,
+                                width: deviceWidth * 0.7,
+                                child: PinCodeTextField(
+                                  keyboardType: TextInputType.number,
+                                  animationType: AnimationType.fade,
+                                  animationDuration: Duration(milliseconds: 10),
+                                  enableActiveFill: true,
+                                  appContext: context,
+                                  length: 4,
+                                  onChanged: (value) {
+                                    print(value);
+                                    setState(() {
+                                      currentText = value;
+                                    });
+                                  },
+                                  cursorColor: Colors.black,
+                                  pinTheme: PinTheme(
+                                    shape: PinCodeFieldShape.box,
+                                    borderRadius: BorderRadius.circular(5),
+                                    fieldWidth: deviceWidth * 0.15,
+                                    selectedFillColor: Colors.white,
+                                    // selectedColor: colors,
+                                    inactiveColor: Colors.white,
+                                    disabledColor: Colors.white,
+
+                                    borderWidth: 1.5,
+                                    inactiveFillColor: Colors.white,
+                                  ),
+                                ),
+                              )
+                            ],
+                          )),
                     ],
                   )),
             ],
