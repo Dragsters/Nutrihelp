@@ -12,6 +12,7 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
   String currentText = "";
+  bool _visible = true;
   @override
   Widget build(BuildContext context) {
     double deviceWidth = MediaQuery.of(context).size.width;
@@ -53,77 +54,89 @@ class _LoginScreenState extends State<LoginScreen> {
                       SizedBox(
                         height: deviceHeight * 0.01,
                       ),
-                      Container(
-                        width: deviceWidth * 0.8,
-                        child: TextField(
-                          decoration: InputDecoration(
-                            focusColor: Colors.white,
-                            hoverColor: Colors.white,
-                            hintText: 'Email',
-                            focusedBorder: OutlineInputBorder(
-                                borderSide:
-                                    BorderSide(color: Colors.white, width: 0),
-                                borderRadius: BorderRadius.circular(20)),
-                            enabledBorder: OutlineInputBorder(
-                                borderSide:
-                                    BorderSide(color: Colors.white, width: 0),
-                                borderRadius: BorderRadius.circular(20)),
-                            border: OutlineInputBorder(
-                                borderSide:
-                                    BorderSide(color: Colors.white, width: 100),
-                                borderRadius: BorderRadius.circular(20)),
-                            filled: true,
-                            fillColor: Colors.white,
-                            contentPadding: EdgeInsets.only(
-                              left: deviceWidth * 0.04,
+                      Stack(children: [
+                        AnimatedOpacity(
+                          opacity: _visible ? 1.0 : 0.0,
+                          duration: Duration(milliseconds: 500),
+                          child: Container(
+                            width: deviceWidth * 0.8,
+                            child: TextField(
+                              decoration: InputDecoration(
+                                focusColor: Colors.white,
+                                hoverColor: Colors.white,
+                                hintText: 'Email',
+                                focusedBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                        color: Colors.white, width: 0),
+                                    borderRadius: BorderRadius.circular(20)),
+                                enabledBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                        color: Colors.white, width: 0),
+                                    borderRadius: BorderRadius.circular(20)),
+                                border: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                        color: Colors.white, width: 100),
+                                    borderRadius: BorderRadius.circular(20)),
+                                filled: true,
+                                fillColor: Colors.white,
+                                contentPadding: EdgeInsets.only(
+                                  left: deviceWidth * 0.04,
+                                ),
+                              ),
                             ),
                           ),
                         ),
-                      ),
-                      SizedBox(
-                        height: deviceHeight * 0.03,
-                      ),
-                      Form(
-                          key: _formKey,
-                          child: Column(
-                            children: [
-                              Container(
-                                height: 50,
-                                width: deviceWidth * 0.7,
-                                child: PinCodeTextField(
-                                  keyboardType: TextInputType.number,
-                                  animationType: AnimationType.fade,
-                                  animationDuration: Duration(milliseconds: 10),
-                                  enableActiveFill: true,
-                                  appContext: context,
-                                  length: 4,
-                                  onChanged: (value) {
-                                    print(value);
-                                    setState(() {
-                                      currentText = value;
-                                    });
-                                  },
-                                  cursorColor: Colors.black,
-                                  pinTheme: PinTheme(
-                                    shape: PinCodeFieldShape.box,
-                                    borderRadius: BorderRadius.circular(10),
-                                    fieldWidth: deviceWidth * 0.15,
-                                    selectedFillColor: Colors.white,
-                                    // selectedColor: colors,
-                                    inactiveColor: Colors.white,
-                                    disabledColor: Colors.white,
-                                    borderWidth: 1.5,
-                                    inactiveFillColor: Colors.white,
-                                  ),
-                                ),
-                              )
-                            ],
-                          )),
+                        AnimatedOpacity(
+                            opacity: _visible ? 0.0 : 1.0,
+                            duration: Duration(milliseconds: 500),
+                            child: Form(
+                                key: _formKey,
+                                child: Column(
+                                  children: [
+                                    Container(
+                                      height: 50,
+                                      width: deviceWidth * 0.7,
+                                      child: PinCodeTextField(
+                                        keyboardType: TextInputType.number,
+                                        animationType: AnimationType.fade,
+                                        animationDuration:
+                                            Duration(milliseconds: 10),
+                                        enableActiveFill: true,
+                                        appContext: context,
+                                        length: 4,
+                                        onChanged: (value) {
+                                          print(value);
+                                          setState(() {
+                                            currentText = value;
+                                          });
+                                        },
+                                        cursorColor: Colors.black,
+                                        pinTheme: PinTheme(
+                                          shape: PinCodeFieldShape.box,
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                          fieldWidth: deviceWidth * 0.15,
+                                          selectedFillColor: Colors.white,
+                                          // selectedColor: colors,
+                                          inactiveColor: Colors.white,
+                                          disabledColor: Colors.white,
+                                          borderWidth: 1.5,
+                                          inactiveFillColor: Colors.white,
+                                        ),
+                                      ),
+                                    )
+                                  ],
+                                ))),
+                      ]),
                       SizedBox(
                         height: deviceHeight * 0.025,
                       ),
                       TextButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          setState(() {
+                            _visible = !_visible;
+                          });
+                        },
                         child: Text(
                           'LOGIN',
                           style: TextStyle(fontSize: deviceWidth * 0.051),
