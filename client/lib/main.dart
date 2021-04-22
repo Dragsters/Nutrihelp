@@ -1,4 +1,4 @@
-import 'package:client/dashboardScreen.dart';
+import 'package:client/loginScreen.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -12,7 +12,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Nutrihelp',
-      home: DashBoardScreen()
+      home: LoginScreen(),
     );
   }
 }
