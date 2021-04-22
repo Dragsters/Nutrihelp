@@ -109,3 +109,5 @@ fabric.properties
 # Comment Reason: https://github.com/joeblau/gitignore.io/issues/186#issuecomment-215987721
 
 modules.xml
+client/android/.settings/org.eclipse.buildship.core.prefs
+client/android/.project
