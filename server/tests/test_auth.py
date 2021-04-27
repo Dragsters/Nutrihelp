@@ -1,5 +1,5 @@
-from ..app import app
 from bson.json_util import dumps
+from ..app import app
 from ..api.v1.auth import mail_otp
 data = [{'email': '9922'},
         {'email': 'ejowfffs2.com'},

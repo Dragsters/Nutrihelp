@@ -1,6 +1,8 @@
 from pymongo import MongoClient
 import os
 from dotenv import load_dotenv
+
+
 load_dotenv()
 client = MongoClient(os.environ.get('DB_URI', None))
 db = client.nutrihelp

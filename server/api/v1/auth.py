@@ -3,9 +3,14 @@ import smtplib
 import re
 from flask import request, jsonify
 import random
-from ...config import testcol, EMAIL, MAIL_PASS
 from bson.json_util import dumps
 from mailer import Mailer, Message
+
+try:
+    from config import testcol, EMAIL, MAIL_PASS
+except:
+    from ...config import testcol, EMAIL, MAIL_PASS
+
 
 col = testcol
 
