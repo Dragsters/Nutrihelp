@@ -14,5 +14,5 @@ class MyApp extends StatelessWidget {
       title: 'Nutrihelp',
       home: LoginScreen(),
     );
-  }
+  } 
 }
