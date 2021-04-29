@@ -5,8 +5,9 @@
 Note: You need to add a `.env` file to server directory, 
 use `.env.example` file to create it.
 
-### Using pip and venv
-- open cmd and move to server directory
+<details> <summary><strong>1. Using pip and venv</strong></summary>
+  
+- Open cmd and move to server directory
 
 - Install and upgrade pip
   - if you face problem in mac os for installing pip, [see this](https://www.geeksforgeeks.org/how-to-install-pip-in-macos/)
@@ -16,7 +17,7 @@ python3 -m pip install --upgrade pip
 # on windows
 py -m pip install --upgrade pip
 ```
-3. install virtualenv package
+- Install virtualenv package
 ```bash
 # on mac/linux
 python3 -m pip install virtualenv
@@ -24,33 +25,58 @@ python3 -m pip install virtualenv
 py -m pip install virtualenv
 ```
 
-4. create a new virtual env (preferred env_name = nutrihelp) 
+- Create a new virtual env (preferred env_name = nutrihelp) 
 ```bash
 # on mac/linux
-python3 -m venv nutrihelp
+python3 -m venv env
 # On Windows:
-py -m venv nutrihelp
+py -m venv env
 ```
 
-5. activate virtual env
+- Activate virtual env
 ```bash
 # on mac/linux
-source nutrihelp/bin/activate
+source env/bin/activate
 # on windows
-.\nutrihelp\bin\activate
+.\env\bin\activate
 ```
-6. installing requirements
+- Installing requirements
 ```bash
 # on mac/linux
 python3 -m pip install -r requirements.txt
 # on windows
 py -m pip install -r requirements.txt
 ```
-7. run flask
+- Run flask
 ```bash
 flask run
 ```
 open the url to flask app provided in console.
+</details>
+
+<details><summary> <strong> 2. using conda and pip</strong></summary>
+  
+1. Open cmd and move to server directory
+2. Create new env
+```bash
+conda create --name nutrihelp pip
+```
+3. Activate that env
+```bash
+conda deactivate  # run if base env is active.
+conda activate nutrihelp
+```
+4. Install requirements
+```bash
+ pip install -r requirements.txt
+```
+  
+5. Run flask
+```bash
+flask run
+```
+open the url to flask app provided in console.
+</details>
 
 Note : while developing, if you install a new package, run this to save it at requirements.txt
 ```bash
