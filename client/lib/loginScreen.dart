@@ -13,6 +13,14 @@ class _LoginScreenState extends State<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
   String currentText = "";
   bool _visible = true;
+  void login() {
+    print('login');
+  }
+
+  void requestOtp() {
+    print('ReqOtp');
+  }
+
   @override
   Widget build(BuildContext context) {
     double deviceWidth = MediaQuery.of(context).size.width;
@@ -127,29 +135,47 @@ class _LoginScreenState extends State<LoginScreen> {
                   ])),
               Positioned(
                   top: deviceHeight * 0.55,
-                  child: TextButton(
-                    onPressed: () {
-                      setState(() {
-                        _visible = !_visible;
-                      });
-                    },
-                    child: _visible
-                        ? Text(
-                            ' Request OTP ',
-                            style: TextStyle(fontSize: deviceWidth * 0.051),
-                          )
-                        : Text('LOGIN',
-                            style: TextStyle(fontSize: deviceWidth * 0.05)),
-                    style: TextButton.styleFrom(
-                      primary: Colors.white,
-                      minimumSize:
-                          Size(deviceWidth * 0.25, deviceHeight * 0.07),
-                      shape: const RoundedRectangleBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(15)),
-                      ),
-                      backgroundColor: Color(0xff05483F),
-                    ),
-                  ))
+                  child: _visible
+                      ? TextButton(
+                          onPressed: () {
+                            login();
+                            setState(() {
+                              _visible = !_visible;
+                            });
+                          },
+                          child: Text('LOGIN',
+                              style: TextStyle(fontSize: deviceWidth * 0.05)),
+                          style: TextButton.styleFrom(
+                            primary: Colors.white,
+                            minimumSize:
+                                Size(deviceWidth * 0.25, deviceHeight * 0.07),
+                            shape: const RoundedRectangleBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(15)),
+                            ),
+                            backgroundColor: Color(0xff05483F),
+                          ),
+                        )
+                      : TextButton(
+                          onPressed: () {
+                            requestOtp();
+                            setState(() {
+                              _visible = !_visible;
+                            });
+                          },
+                          child: Text(' Request OTP ',
+                              style: TextStyle(fontSize: deviceWidth * 0.05)),
+                          style: TextButton.styleFrom(
+                            primary: Colors.white,
+                            minimumSize:
+                                Size(deviceWidth * 0.25, deviceHeight * 0.07),
+                            shape: const RoundedRectangleBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(15)),
+                            ),
+                            backgroundColor: Color(0xff05483F),
+                          ),
+                        ))
             ])));
   }
 }
