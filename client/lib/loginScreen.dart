@@ -13,6 +13,14 @@ class _LoginScreenState extends State<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
   String currentText = "";
   bool _visible = true;
+  void login() {
+    print('login');
+  }
+
+  void requestOtp() {
+    print('ReqOtp');
+  }
+
   @override
   Widget build(BuildContext context) {
     double deviceWidth = MediaQuery.of(context).size.width;
@@ -130,6 +138,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   child: _visible
                       ? TextButton(
                           onPressed: () {
+                            login();
                             setState(() {
                               _visible = !_visible;
                             });
@@ -149,6 +158,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         )
                       : TextButton(
                           onPressed: () {
+                            requestOtp();
                             setState(() {
                               _visible = !_visible;
                             });
