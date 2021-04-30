@@ -1,4 +1,6 @@
+import 'package:client/resources/api_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
@@ -11,8 +13,10 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
-  String currentText = "";
-  bool _visible = true;
+  Apiprovider apiprovider = Apiprovider();
+  String otpString = "";
+  String emailString = "";
+  bool _visibleLogin = true;
   void login() {
     print('login');
   }
@@ -56,15 +60,17 @@ class _LoginScreenState extends State<LoginScreen> {
                             color: Colors.black, fontSize: deviceWidth * 0.1))),
               ),
               AnimatedPositioned(
-                  top: _visible ? deviceHeight * 0.42 : deviceHeight * 0.32,
+                  top:
+                      _visibleLogin ? deviceHeight * 0.42 : deviceHeight * 0.32,
                   duration: Duration(milliseconds: 400),
                   child: Column(children: [
                     AnimatedOpacity(
-                      opacity: _visible ? 1.0 : 0.0,
+                      opacity: _visibleLogin ? 1.0 : 0.0,
                       duration: Duration(milliseconds: 250),
                       child: Container(
                         width: deviceWidth * 0.8,
                         child: TextField(
+                          onChanged: (value) => emailString = value,
                           decoration: InputDecoration(
                             focusColor: Colors.white,
                             hoverColor: Colors.white,
@@ -93,7 +99,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     SizedBox(height: 10),
                     AnimatedOpacity(
                         alwaysIncludeSemantics: true,
-                        opacity: _visible ? 0.0 : 1.0,
+                        opacity: _visibleLogin ? 0.0 : 1.0,
                         duration: Duration(milliseconds: 250),
                         child: Form(
                             key: _formKey,
@@ -113,7 +119,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                     onChanged: (value) {
                                       print(value);
                                       setState(() {
-                                        currentText = value;
+                                        otpString = value;
                                       });
                                     },
                                     cursorColor: Colors.black,
@@ -135,47 +141,28 @@ class _LoginScreenState extends State<LoginScreen> {
                   ])),
               Positioned(
                   top: deviceHeight * 0.55,
-                  child: _visible
-                      ? TextButton(
-                          onPressed: () {
-                            login();
-                            setState(() {
-                              _visible = !_visible;
-                            });
-                          },
-                          child: Text('LOGIN',
-                              style: TextStyle(fontSize: deviceWidth * 0.05)),
-                          style: TextButton.styleFrom(
-                            primary: Colors.white,
-                            minimumSize:
-                                Size(deviceWidth * 0.25, deviceHeight * 0.07),
-                            shape: const RoundedRectangleBorder(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(15)),
-                            ),
-                            backgroundColor: Color(0xff05483F),
-                          ),
-                        )
-                      : TextButton(
-                          onPressed: () {
-                            requestOtp();
-                            setState(() {
-                              _visible = !_visible;
-                            });
-                          },
-                          child: Text(' Request OTP ',
-                              style: TextStyle(fontSize: deviceWidth * 0.05)),
-                          style: TextButton.styleFrom(
-                            primary: Colors.white,
-                            minimumSize:
-                                Size(deviceWidth * 0.25, deviceHeight * 0.07),
-                            shape: const RoundedRectangleBorder(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(15)),
-                            ),
-                            backgroundColor: Color(0xff05483F),
-                          ),
-                        ))
+                  child: TextButton(
+                    onPressed: () {
+                      _visibleLogin ? apiprovider.auth() : 'no';
+                      setState(() {
+                        _visibleLogin = !_visibleLogin;
+                      });
+                    },
+                    child: _visibleLogin
+                        ? Text('LOGIN',
+                            style: TextStyle(fontSize: deviceWidth * 0.05))
+                        : Text(' Request OTP ',
+                            style: TextStyle(fontSize: deviceWidth * 0.05)),
+                    style: TextButton.styleFrom(
+                      primary: Colors.white,
+                      minimumSize:
+                          Size(deviceWidth * 0.25, deviceHeight * 0.07),
+                      shape: const RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(15)),
+                      ),
+                      backgroundColor: Color(0xff05483F),
+                    ),
+                  ))
             ])));
   }
 }
