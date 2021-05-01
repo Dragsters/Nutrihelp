@@ -1,4 +1,5 @@
 import 'package:client/resources/api_provider.dart';
+import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -17,12 +18,18 @@ class _LoginScreenState extends State<LoginScreen> {
   String otpString = "";
   String emailString = "";
   bool _visibleLogin = true;
-  void login() {
-    print('login');
+
+  bool requestOtp() {
+    final form = _formKey.currentState;
+
+    print(form.validate());
+    if (form.validate()) {
+      apiprovider.auth(emailString);
+    }
   }
 
-  void requestOtp() {
-    print('ReqOtp');
+  bool login() {
+    apiprovider.auth(emailString, otp: otpString);
   }
 
   @override
@@ -67,30 +74,37 @@ class _LoginScreenState extends State<LoginScreen> {
                     AnimatedOpacity(
                       opacity: _visibleLogin ? 1.0 : 0.0,
                       duration: Duration(milliseconds: 250),
-                      child: Container(
-                        width: deviceWidth * 0.8,
-                        child: TextField(
-                          onChanged: (value) => emailString = value,
-                          decoration: InputDecoration(
-                            focusColor: Colors.white,
-                            hoverColor: Colors.white,
-                            hintText: 'Email',
-                            focusedBorder: OutlineInputBorder(
-                                borderSide:
-                                    BorderSide(color: Colors.white, width: 0),
-                                borderRadius: BorderRadius.circular(20)),
-                            enabledBorder: OutlineInputBorder(
-                                borderSide:
-                                    BorderSide(color: Colors.white, width: 0),
-                                borderRadius: BorderRadius.circular(20)),
-                            border: OutlineInputBorder(
-                                borderSide:
-                                    BorderSide(color: Colors.white, width: 100),
-                                borderRadius: BorderRadius.circular(20)),
-                            filled: true,
-                            fillColor: Colors.white,
-                            contentPadding: EdgeInsets.only(
-                              left: deviceWidth * 0.04,
+                      child: Form(
+                        key: _formKey,
+                        child: Container(
+                          width: deviceWidth * 0.8,
+                          child: TextFormField(
+                            validator: (val) =>
+                                !EmailValidator.validate(val, true)
+                                    ? 'Enter a valid email.'
+                                    : null,
+                            onChanged: (value) => emailString = value,
+                            decoration: InputDecoration(
+                              focusColor: Colors.white,
+                              hoverColor: Colors.white,
+                              hintText: 'Email',
+                              focusedBorder: OutlineInputBorder(
+                                  borderSide:
+                                      BorderSide(color: Colors.white, width: 0),
+                                  borderRadius: BorderRadius.circular(20)),
+                              enabledBorder: OutlineInputBorder(
+                                  borderSide:
+                                      BorderSide(color: Colors.white, width: 0),
+                                  borderRadius: BorderRadius.circular(20)),
+                              border: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                      color: Colors.white, width: 100),
+                                  borderRadius: BorderRadius.circular(20)),
+                              filled: true,
+                              fillColor: Colors.white,
+                              contentPadding: EdgeInsets.only(
+                                left: deviceWidth * 0.04,
+                              ),
                             ),
                           ),
                         ),
@@ -101,54 +115,57 @@ class _LoginScreenState extends State<LoginScreen> {
                         alwaysIncludeSemantics: true,
                         opacity: _visibleLogin ? 0.0 : 1.0,
                         duration: Duration(milliseconds: 250),
-                        child: Form(
-                            key: _formKey,
-                            child: Column(
-                              children: [
-                                Container(
-                                  height: 50,
-                                  width: deviceWidth * 0.7,
-                                  child: PinCodeTextField(
-                                    keyboardType: TextInputType.number,
-                                    animationType: AnimationType.fade,
-                                    animationDuration:
-                                        Duration(milliseconds: 10),
-                                    enableActiveFill: true,
-                                    appContext: context,
-                                    length: 4,
-                                    onChanged: (value) {
-                                      print(value);
-                                      setState(() {
-                                        otpString = value;
-                                      });
-                                    },
-                                    cursorColor: Colors.black,
-                                    pinTheme: PinTheme(
-                                      shape: PinCodeFieldShape.box,
-                                      borderRadius: BorderRadius.circular(10),
-                                      fieldWidth: deviceWidth * 0.15,
-                                      selectedFillColor: Colors.white,
-                                      // selectedColor: colors,
-                                      inactiveColor: Colors.white,
-                                      disabledColor: Colors.white,
-                                      borderWidth: 1.5,
-                                      inactiveFillColor: Colors.white,
-                                    ),
-                                  ),
-                                )
-                              ],
-                            ))),
+                        child: Column(
+                          children: [
+                            Container(
+                              height: 50,
+                              width: deviceWidth * 0.7,
+                              child: PinCodeTextField(
+                                keyboardType: TextInputType.number,
+                                animationType: AnimationType.fade,
+                                animationDuration: Duration(milliseconds: 10),
+                                enableActiveFill: true,
+                                appContext: context,
+                                length: 4,
+                                onChanged: (value) {
+                                  print(value);
+                                  setState(() {
+                                    otpString = value;
+                                  });
+                                },
+                                cursorColor: Colors.black,
+                                pinTheme: PinTheme(
+                                  shape: PinCodeFieldShape.box,
+                                  borderRadius: BorderRadius.circular(10),
+                                  fieldWidth: deviceWidth * 0.15,
+                                  selectedFillColor: Colors.white,
+                                  // selectedColor: colors,
+                                  inactiveColor: Colors.white,
+                                  disabledColor: Colors.white,
+                                  borderWidth: 1.5,
+                                  inactiveFillColor: Colors.white,
+                                ),
+                              ),
+                            )
+                          ],
+                        )),
                   ])),
               Positioned(
                   top: deviceHeight * 0.55,
                   child: TextButton(
                     onPressed: () {
-                      _visibleLogin ? apiprovider.auth() : 'no';
-                      setState(() {
-                        _visibleLogin = !_visibleLogin;
-                      });
+                      print(_visibleLogin);
+                      if (_visibleLogin) {
+                        if (requestOtp()) {
+                          setState(() {
+                            _visibleLogin = !_visibleLogin;
+                          });
+                        }
+                      } else {
+                        login();
+                      }
                     },
-                    child: _visibleLogin
+                    child: !_visibleLogin
                         ? Text('LOGIN',
                             style: TextStyle(fontSize: deviceWidth * 0.05))
                         : Text(' Request OTP ',
