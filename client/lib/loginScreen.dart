@@ -29,7 +29,7 @@ class _LoginScreenState extends State<LoginScreen> {
     return false;
   }
 
-  bool login() {
+  void login() {
     apiprovider.auth(context, emailString, otp: otpString);
   }
 

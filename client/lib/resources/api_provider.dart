@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:client/dashboardScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' show Client;
 import 'package:http/http.dart' as http;
@@ -33,6 +34,14 @@ class Apiprovider {
       String status = data['msg'];
       ScaffoldMessenger.of(context)
           .showSnackBar(SnackBar(content: Text(status)));
+      if (otp != '' && data['ok'] == true) {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => DashBoardScreen(),
+          ),
+        );
+      }
     }
   }
 }
