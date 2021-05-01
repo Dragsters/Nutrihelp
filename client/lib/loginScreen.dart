@@ -21,15 +21,16 @@ class _LoginScreenState extends State<LoginScreen> {
 
   bool requestOtp() {
     final form = _formKey.currentState;
-
-    print(form.validate());
     if (form.validate()) {
-      apiprovider.auth(emailString);
+      apiprovider.auth(context, emailString);
+
+      return true;
     }
+    return false;
   }
 
   bool login() {
-    apiprovider.auth(emailString, otp: otpString);
+    apiprovider.auth(context, emailString, otp: otpString);
   }
 
   @override
@@ -128,7 +129,6 @@ class _LoginScreenState extends State<LoginScreen> {
                                 appContext: context,
                                 length: 4,
                                 onChanged: (value) {
-                                  print(value);
                                   setState(() {
                                     otpString = value;
                                   });
@@ -154,7 +154,6 @@ class _LoginScreenState extends State<LoginScreen> {
                   top: deviceHeight * 0.55,
                   child: TextButton(
                     onPressed: () {
-                      print(_visibleLogin);
                       if (_visibleLogin) {
                         if (requestOtp()) {
                           setState(() {
