@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'package:client/dashboardScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' show Client;
-import 'package:http/http.dart' as http;
 
 class Apiprovider {
   Client client = Client();
