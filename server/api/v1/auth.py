@@ -45,6 +45,7 @@ def login():
         if db_otp.get('otp') == otp:
             return jsonify(ok=True, msg='login success')
         else:
+            # TODO : Security Risk. remove correct arguement later.
             return jsonify(ok=False, msg='Wrong OTP', correct=db_otp, given=otp)
 
     else:
@@ -55,7 +56,7 @@ def mail_otp(email_add, otp):
     msg = Message(From=EMAIL,
                   To=email_add,
                   charset='utf-8')
-    msg.subject = 'Your OTP for Nutrihelp'
+    msg.Subject = 'Your OTP for Nutrihelp'
     msg.Html = f'''<h3> Welcome to Nutrihelp {email_add}</h3>
                     <br>Your OTP for login is<br>
                     <h1>{otp}</h1>
