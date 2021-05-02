@@ -11,9 +11,17 @@ class DashBoardScreen extends StatelessWidget {
       'Add patient',
       'recent reports',
       'patients',
-      'generate \n report',
+      'generate report',
       'about us',
       'logout'
+    ];
+    const tilesIcons = [
+      Icons.person_add_alt_1,
+      Icons.list,
+      Icons.view_sidebar,
+      Icons.assignment,
+      Icons.person_pin,
+      Icons.logout
     ];
 
     double deviceWidth = MediaQuery.of(context).size.width;
@@ -91,10 +99,24 @@ class DashBoardScreen extends StatelessWidget {
                               child: Container(
                                 height: deviceHeight * 0.07,
                                 width: deviceWidth * 0.1,
-                                child: Center(
-                                  child: Text(
-                                    tilesTitle[index],
-                                  ),
+                                child: Column(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    IconButton(
+                                      onPressed: () {},
+                                      icon: Icon(tilesIcons[index],
+                                          size: deviceWidth * 0.15),
+                                      color: Color(0xff05483f),
+                                    ),
+                                    Text(
+                                      tilesTitle[index],
+                                      style: TextStyle(
+                                          color: Color(0xff05483f),
+                                          fontSize: deviceWidth * 0.04,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  ],
                                 ),
                               ),
                             ));

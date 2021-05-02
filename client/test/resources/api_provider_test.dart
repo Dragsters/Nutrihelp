@@ -5,9 +5,17 @@ import 'package:http/testing.dart';
 import 'dart:convert';
 
 void main() {
-  testWidgets('api provider ...', (tester) async {
-    // setup the test
-    Apiprovider apiprovider = Apiprovider();
-    apiprovider.client = MockClient((request) {});
+  test('Request Otp API mocking', () async {
+    final apiprovider = Apiprovider();
+    apiprovider.client = MockClient((request) async {
+      return Response(
+          jsonEncode({"msg": "Check Mail for OTP", "ok": true}), 200);
+    });
+  });
+  test('login', () async {
+    final apiprovider = Apiprovider();
+    apiprovider.client = MockClient((request) async {
+      return Response(jsonEncode({"msg": "login success", "ok": true}), 200);
+    });
   });
 }
