@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:client/dashboardScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' show Client;
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Apiprovider {
   Client client = Client();
@@ -34,6 +35,8 @@ class Apiprovider {
       ScaffoldMessenger.of(context)
           .showSnackBar(SnackBar(content: Text(status)));
       if (otp != '' && data['ok'] == true) {
+        SharedPreferences isLogin = await SharedPreferences.getInstance();
+        isLogin.setBool('login', true);
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(
