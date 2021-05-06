@@ -1,6 +1,8 @@
+import 'package:client/loginScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class DashBoardScreen extends StatelessWidget {
   const DashBoardScreen({Key key}) : super(key: key);
@@ -11,9 +13,30 @@ class DashBoardScreen extends StatelessWidget {
       'Add patient',
       'recent reports',
       'patients',
-      'generate \n report',
+      'generate report',
       'about us',
       'logout'
+    ];
+    const tilesIcons = [
+      Icons.person_add_alt_1,
+      Icons.list,
+      Icons.view_sidebar,
+      Icons.assignment,
+      Icons.person_pin,
+      Icons.logout
+    ];
+    List<Function> tilesFunctions = [
+      () {},
+      () {},
+      () {},
+      () {},
+      () {},
+      () async {
+        SharedPreferences isLogin = await SharedPreferences.getInstance();
+        isLogin.setBool('login', false);
+        Navigator.pushReplacement(context,
+            new MaterialPageRoute(builder: (context) => LoginScreen()));
+      }
     ];
 
     double deviceWidth = MediaQuery.of(context).size.width;
@@ -82,7 +105,7 @@ class DashBoardScreen extends StatelessWidget {
                       ),
                       itemBuilder: (BuildContext context, int index) {
                         return GestureDetector(
-                            onTap: () {},
+                            onTap: tilesFunctions[index],
                             child: Card(
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(20),
@@ -91,10 +114,24 @@ class DashBoardScreen extends StatelessWidget {
                               child: Container(
                                 height: deviceHeight * 0.07,
                                 width: deviceWidth * 0.1,
-                                child: Center(
-                                  child: Text(
-                                    tilesTitle[index],
-                                  ),
+                                child: Column(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    IconButton(
+                                      onPressed: tilesFunctions[index],
+                                      icon: Icon(tilesIcons[index],
+                                          size: deviceWidth * 0.15),
+                                      color: Color(0xff05483f),
+                                    ),
+                                    Text(
+                                      tilesTitle[index],
+                                      style: TextStyle(
+                                          color: Color(0xff05483f),
+                                          fontSize: deviceWidth * 0.04,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  ],
                                 ),
                               ),
                             ));
