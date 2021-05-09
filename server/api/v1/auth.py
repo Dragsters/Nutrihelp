@@ -4,6 +4,7 @@ import re
 from flask import request, jsonify
 import random
 from bson.json_util import dumps
+from flask.blueprints import Blueprint
 from mailer import Mailer, Message
 
 try:
@@ -13,6 +14,7 @@ except:
 
 
 col = testcol
+bp_auth = Blueprint('auth', __name__, url_prefix='/auth')
 
 
 def validate_email(email):
@@ -22,6 +24,7 @@ def validate_email(email):
     return False
 
 
+@bp_auth.route('', methods=['POST'])
 def login():
     data: dict = request.json
     email = data.get('email')
@@ -33,20 +36,21 @@ def login():
 
     if otp is None:
         otp = str(random.randint(1234, 9876))
-        col.user.update_one({'email': email},
-                            {'$set': {'email': email, 'otp': otp}},
-                            upsert=True)
+        col.update_one({'email': email},
+                       {'$set': {'email': email, 'otp': otp}},
+                       upsert=True)
         mail_otp(email, otp)
         return jsonify(ok=True, msg='Check Mail for OTP')
 
-    elif len(otp) == 4 and type(otp) == str:
-        db_otp = col.user.find_one({'email': email}, {'_id': 0, 'otp': 1})
-        print(db_otp, db_otp.get('otp'), type(db_otp), otp, '\n\n')
-        if db_otp.get('otp') == otp:
-            return jsonify(ok=True, msg='login success')
+    elif type(otp) == str and len(otp) == 4:
+        user = col.find_one({'email': email})
+        db_otp = user.get('otp')
+        print(db_otp, type(db_otp), otp, '\n\n')
+        if db_otp == otp:
+            return jsonify(ok=True, msg='login success', userid=str(user.get('_id')))
         else:
             # TODO : Security Risk. remove correct arguement later.
-            return jsonify(ok=False, msg='Wrong OTP', correct=db_otp, given=otp)
+            return jsonify(ok=False, msg='Wrong OTP')
 
     else:
         return jsonify(ok=False, msg='Invalid OTP\nOr\nBad Request')

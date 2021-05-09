@@ -8,10 +8,21 @@ schema = {
                     'mob': 9929929922,
                     'address': 'string',
                     'stats': {...},
-                    'heart_reports': [{'probability': 89, 'created on': 'date'}, {...}],
-                    'diabetes_reports': [{'probability': 79, 'created on': 'date'}, {...}]
                 }, {...}
-            ]
+            ],
+            'reports': {
+                'heart': [
+                    {'patient_id': 932003,
+                     'time': 'datetime',
+                     'stats': {}}, {...}
+                ],
+                'diabetes': [{
+                    'patient_id': 392,
+                    'time': 'datetime'
+
+                }]
+
+            }
         }, {...}
     ],
     'suggestions': {
