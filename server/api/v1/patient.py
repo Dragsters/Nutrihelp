@@ -1,9 +1,7 @@
-
 import bson
 from bson.objectid import ObjectId
 from flask import json, request, jsonify
 from bson.json_util import dumps
-from flask.globals import g
 from flask.wrappers import Response
 from flask.blueprints import Blueprint
 from pymongo.collection import ReturnDocument
@@ -22,8 +20,8 @@ def add_patient():
     data['patient']['id'] = ObjectId()
     ans = ''
     try:
-        ans = col.find_one_and_update({'_id': ObjectId(data.pop('userid', None))}, {
-            '$push': {'patients': data.get('patient')}})
+        ans = col.find_one_and_update({'_id': ObjectId(data.pop('userid', None))},
+                                      {'$push': {'patients': data.get('patient')}})
     except bson.errors.InvalidId as e:
         return jsonify(ok=False, msg=f'invalid userid provided\n\n{e}')
     if ans == None:
@@ -58,24 +56,38 @@ def patient(userid, patientid):
         data = col.find_one({**query}, {'_id': 0, 'patients.$': 1})
         if data == None:
             return jsonify(ok=False, msg='no such patient found')
-        return Response(response=dumps(data['patients']), mimetype='application/json')
+        return Response(response=dumps(data['patients'][0]), mimetype='application/json')
 
     elif request.method == 'DELETE':
         data = col.find_one_and_update({'_id': ObjectId(userid)},
                                        {'$pull': {'patients': {
                                            'id': ObjectId(patientid)}}},
                                        return_document=ReturnDocument.AFTER)
+        if data == None:
+            return jsonify(ok=False, msg='no such patient found')
         return jsonify(ok=True, msg='patient deleted')
 
     elif request.method == 'PUT':
         data = request.json
         update_fields = {}
         for key in data:
-            update_fields[f'patients.$.{key}'] = data.get(key)
+            if key == 'stats':
+                for key2 in data.get(key):
+                    update_fields[f'patients.$.{key}.{key2}'] = data.get(
+                        key).get(key2)
+            else:
+                update_fields[f'patients.$.{key}'] = data.get(key)
         data = col.find_one_and_update(
             {**query}, {'$set': {**update_fields}}, return_document=ReturnDocument.AFTER)
+        if data == None:
+            return jsonify(ok=False, msg='no such patient found')
         return jsonify(ok=True, msg='patient details updated')
 
+
+@bp_patients.route('/<userid>/<patientid>/reports')
+def get_patient_reports():
+    # TODO
+    pass
 
 # @ bp_patients.route('/<userid>/delete')
 # def delete_all(userid):
