@@ -1,5 +1,3 @@
-from email.message import EmailMessage
-import smtplib
 import re
 from flask import request, jsonify
 import random
@@ -49,7 +47,6 @@ def login():
         if db_otp == otp:
             return jsonify(ok=True, msg='login success', userid=str(user.get('_id')))
         else:
-            # TODO : Security Risk. remove correct arguement later.
             return jsonify(ok=False, msg='Wrong OTP')
 
     else:

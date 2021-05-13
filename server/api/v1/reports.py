@@ -1,8 +1,7 @@
 import bson
 from bson.objectid import ObjectId
-from flask import app, json, request, jsonify
+from flask import request, jsonify
 from bson.json_util import dumps
-from flask.globals import g
 from flask.wrappers import Response
 from flask.blueprints import Blueprint
 from pymongo.collection import ReturnDocument
@@ -10,11 +9,9 @@ import requests
 try:
     from ML.predict.diabetes_predict import Diabetes
     from config import testcol
-    from api.v1.tips import diabetes_tips
 except:
     from ...ML.predict.diabetes_predict import Diabetes
     from ...config import testcol
-    from .tips import diabetes_tips
 
 col = testcol
 bp_reports = Blueprint('report', __name__, url_prefix='/reports')
@@ -29,15 +26,15 @@ def diabetes_report(userid, patientid):
     print(patient)
     if(patient.get('ok') != None):
         return jsonify(msg='no such patient found', ok=False)
-    report = dict(patient_id=patient['id']['$oid'])
+    report = dict(patient_id=patient['id']
+                  ['$oid'], patient_name=patient['name'])
     report['id'] = ObjectId()
     report['type'] = 'diabetes'
     report['probability'] = Diabetes(patient=patient).probability()
-    report['tips'] = diabetes_tips if report['probability'] > 50 else '- Congrats ! You have low risks of diabetes. Keep it Up'
 
     try:
-        ans = col.find_one_and_update({'_id': ObjectId(userid)},
-                                      {'$push': {'reports': report}})
+        col.find_one_and_update({'_id': ObjectId(userid)},
+                                {'$push': {'reports': report}})
     except bson.errors.InvalidId as e:
         return jsonify(ok=False, msg=f'invalid userid provided\n\n{e}')
     return Response(response=dumps(report), mimetype='application/json')
