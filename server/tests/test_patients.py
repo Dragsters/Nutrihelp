@@ -59,6 +59,7 @@ def test_get_all_patients():
             pprint(res.json)
             if type(res.json) == list:
                 g.patient_id = [(d.get('id')) for d in res.json]
+                g.patient_id.append({'$oid': userid[1]})
             assert res.status_code == 200
 
 
@@ -80,10 +81,6 @@ def test_patient_update():
                 res = client.put(uri, json=patient2)
                 pprint(res.json)
                 assert res.status_code == 200
-
-
-def test_patient_get_after_update():
-    test_patient_get()
 
 
 def test_patient_delete():
