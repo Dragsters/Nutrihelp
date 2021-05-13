@@ -167,6 +167,7 @@ class Diabetes:
         print(self.df.values)
         result = knc_model.predict_proba(self.df)
         perc = result[0][1]
-        perc = (1/11 + perc) if perc < 50 else (perc-1/11)
+        perc = (1/11 + perc) if perc < 10 else (perc -
+                                                1/13) if perc > 90 else perc
         print('result ', perc)
         return perc*100

@@ -1,5 +1,3 @@
-from datetime import datetime
-from server.ML.predict.diabetes_predict import Diabetes
 import bson
 from bson.objectid import ObjectId
 from flask import app, json, request, jsonify
@@ -10,9 +8,11 @@ from flask.blueprints import Blueprint
 from pymongo.collection import ReturnDocument
 import requests
 try:
+    from ML.predict.diabetes_predict import Diabetes
     from config import testcol
     from api.v1.tips import diabetes_tips
 except:
+    from ...ML.predict.diabetes_predict import Diabetes
     from ...config import testcol
     from .tips import diabetes_tips
 
@@ -23,8 +23,10 @@ bp_reports = Blueprint('report', __name__, url_prefix='/reports')
 @bp_reports.route('/diabetes/<userid>/<patientid>')
 def diabetes_report(userid, patientid):
     res = requests.get(
-        url='http://localhost:5000/patients/'+userid+'/'+patientid)
+        url='https://nutrihelpb.herokuapp.com/patients/'+userid+'/'+patientid)
+    print(res)
     patient = res.json()
+    print(patient)
     if(patient.get('ok') != None):
         return jsonify(msg='no such patient found', ok=False)
     report = dict(patient_id=patient['id']['$oid'])
@@ -72,7 +74,7 @@ def get_recent_reports(userid):
     return Response(response=dumps(data[0].get('reports')), mimetype='application/json')
 
 
-@ bp_reports.route('/<userid>/<reportid>', methods=['GET', 'DELETE'])
+@bp_reports.route('/<userid>/<reportid>', methods=['GET', 'DELETE'])
 def report(userid, reportid):
     try:
         query = {'_id': ObjectId(userid),
@@ -83,7 +85,7 @@ def report(userid, reportid):
     if request.method == 'GET':
         data = col.find_one({**query}, {'_id': 0, 'reports.$': 1})
         if data == None:
-            return jsonify(ok=False, msg='no such patient found')
+            return jsonify(ok=False, msg='no such report found')
         return Response(response=dumps(data['reports'][0]), mimetype='application/json')
 
     elif request.method == 'DELETE':
@@ -92,5 +94,5 @@ def report(userid, reportid):
                                            'id': ObjectId(reportid)}}},
                                        return_document=ReturnDocument.AFTER)
         if data == None:
-            return jsonify(ok=False, msg='no such patient found')
-        return jsonify(ok=True, msg='patient deleted')
+            return jsonify(ok=False, msg='no such report found')
+        return jsonify(ok=True, msg='report deleted')
