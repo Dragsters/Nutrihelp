@@ -1,8 +1,12 @@
-import 'package:client/loginScreen.dart';
+import 'package:client/add_patient_screen.dart';
+import 'package:client/generate_report.dart';
+import 'package:client/models/generate_report_form_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import 'login_screen.dart';
 
 class DashBoardScreen extends StatelessWidget {
   const DashBoardScreen({Key key}) : super(key: key);
@@ -25,24 +29,33 @@ class DashBoardScreen extends StatelessWidget {
       Icons.person_pin,
       Icons.logout
     ];
-    List<Function> tilesFunctions = [
+    final tilesFunctions = [
+      () {
+        Navigator.push(context,
+            MaterialPageRoute(builder: (context) => AddPaitentScreen()));
+      },
       () {},
       () {},
-      () {},
-      () {},
+      () {
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => const GenerateReportScreen()));
+      },
       () {},
       () async {
-        SharedPreferences isLogin = await SharedPreferences.getInstance();
+        final SharedPreferences isLogin = await SharedPreferences.getInstance();
         isLogin.setBool('login', false);
+        isLogin.remove('userId');
         Navigator.pushReplacement(context,
-            new MaterialPageRoute(builder: (context) => LoginScreen()));
+            MaterialPageRoute(builder: (context) => const LoginScreen()));
       }
     ];
 
-    double deviceWidth = MediaQuery.of(context).size.width;
-    double deviceHeight = MediaQuery.of(context).size.height;
+    final double deviceWidth = MediaQuery.of(context).size.width;
+    final double deviceHeight = MediaQuery.of(context).size.height;
     return Container(
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
           gradient: LinearGradient(
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
@@ -58,10 +71,10 @@ class DashBoardScreen extends StatelessWidget {
                 child: Container(
                   height: deviceHeight * 0.35,
                   width: deviceWidth,
-                  color: Color(0xff05483f),
+                  color: const Color(0xff05483f),
                 )),
             Positioned(
-              top: deviceHeight * 0.16,
+              top: deviceHeight * 0.17,
               child: Container(
                   width: deviceWidth * 0.9,
                   child: TextField(
@@ -81,7 +94,7 @@ class DashBoardScreen extends StatelessWidget {
             ),
             Positioned(
                 top: deviceHeight * 0.09,
-                child: Text('NutriHelp',
+                child: Text('Health Predictor',
                     style: GoogleFonts.redressed(
                         textStyle: TextStyle(
                             color: Colors.white,
@@ -89,7 +102,7 @@ class DashBoardScreen extends StatelessWidget {
             Column(
               children: [
                 SizedBox(
-                  height: deviceHeight * 0.2,
+                  height: deviceHeight * 0.23,
                 ),
                 Container(
                   height: deviceHeight * 0.75,
@@ -122,12 +135,12 @@ class DashBoardScreen extends StatelessWidget {
                                       onPressed: tilesFunctions[index],
                                       icon: Icon(tilesIcons[index],
                                           size: deviceWidth * 0.15),
-                                      color: Color(0xff05483f),
+                                      color: const Color(0xff05483f),
                                     ),
                                     Text(
                                       tilesTitle[index],
                                       style: TextStyle(
-                                          color: Color(0xff05483f),
+                                          color: const Color(0xff05483f),
                                           fontSize: deviceWidth * 0.04,
                                           fontWeight: FontWeight.bold),
                                     ),

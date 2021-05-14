@@ -1,4 +1,4 @@
-import 'package:client/loginScreen.dart';
+import 'package:client/generate_report.dart';
 import 'package:client/splashScreen.dart';
 import 'package:flutter/material.dart';
 
