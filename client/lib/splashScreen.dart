@@ -1,8 +1,8 @@
-import 'package:client/dashboardScreen.dart';
-import 'package:client/loginScreen.dart';
+import 'dart:async';
+import 'package:client/dashboard_screen.dart';
+import 'package:client/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'dart:async';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -21,16 +21,16 @@ class _SplashScreenState extends State<SplashScreen> {
     initial();
   }
 
-  void initial() async {
+  dynamic initial() async {
     isLogin = await SharedPreferences.getInstance();
     logged = isLogin.getBool('login') == null ? false : true;
     Timer(
-      Duration(seconds: 3),
+      const Duration(seconds: 3),
       () => Navigator.pushReplacement(
         context,
         MaterialPageRoute(
           builder: (BuildContext context) =>
-              logged ? DashBoardScreen() : LoginScreen(),
+              logged ? const DashBoardScreen() : const LoginScreen(),
         ),
       ),
     );
@@ -38,10 +38,10 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
-    double deviceWidth = MediaQuery.of(context).size.width;
-    double deviceHeight = MediaQuery.of(context).size.height;
+    final double deviceWidth = MediaQuery.of(context).size.width;
+    final double deviceHeight = MediaQuery.of(context).size.height;
     return Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
             gradient: LinearGradient(
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
@@ -65,11 +65,11 @@ class _SplashScreenState extends State<SplashScreen> {
                   )),
               Positioned(
                 top: deviceHeight * 0.4,
-                child: Text('NutriHelp',
+                child: Text('Health Predictor',
                     style: GoogleFonts.berkshireSwash(
                         textStyle: TextStyle(
                             color: Colors.black,
-                            fontSize: deviceWidth * 0.14,
+                            fontSize: deviceWidth * 0.11,
                             letterSpacing: 2))),
               ),
             ])));
