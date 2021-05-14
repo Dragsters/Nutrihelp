@@ -32,6 +32,8 @@ dependencies:
   pin_code_fields: ^7.0.0
   email_validator: ^2.0.1
   shared_preferences: ^2.0.5
+  flutter_form_builder: ^6.0.0
+  lint: ^1.5.3
 
 dev_dependencies:
   flutter_test:

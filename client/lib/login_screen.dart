@@ -6,7 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
 class LoginScreen extends StatefulWidget {
-  LoginScreen({Key key}) : super(key: key);
+  const LoginScreen({Key key}) : super(key: key);
 
   @override
   _LoginScreenState createState() => _LoginScreenState();
@@ -35,10 +35,10 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    double deviceWidth = MediaQuery.of(context).size.width;
-    double deviceHeight = MediaQuery.of(context).size.height;
+    final double deviceWidth = MediaQuery.of(context).size.width;
+    final double deviceHeight = MediaQuery.of(context).size.height;
     return Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
             gradient: LinearGradient(
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
@@ -62,7 +62,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   )),
               Positioned(
                 top: deviceHeight * 0.3,
-                child: Text('NUTRIHELP',
+                child: Text('Health Predictor',
                     style: GoogleFonts.redressed(
                         textStyle: TextStyle(
                             color: Colors.black, fontSize: deviceWidth * 0.1))),
@@ -70,11 +70,11 @@ class _LoginScreenState extends State<LoginScreen> {
               AnimatedPositioned(
                   top:
                       _visibleLogin ? deviceHeight * 0.42 : deviceHeight * 0.32,
-                  duration: Duration(milliseconds: 400),
+                  duration: const Duration(milliseconds: 400),
                   child: Column(children: [
                     AnimatedOpacity(
                       opacity: _visibleLogin ? 1.0 : 0.0,
-                      duration: Duration(milliseconds: 250),
+                      duration: const Duration(milliseconds: 250),
                       child: Form(
                         key: _formKey,
                         child: Container(
@@ -90,15 +90,15 @@ class _LoginScreenState extends State<LoginScreen> {
                               hoverColor: Colors.white,
                               hintText: 'Email',
                               focusedBorder: OutlineInputBorder(
-                                  borderSide:
-                                      BorderSide(color: Colors.white, width: 0),
+                                  borderSide: const BorderSide(
+                                      color: Colors.white, width: 0),
                                   borderRadius: BorderRadius.circular(20)),
                               enabledBorder: OutlineInputBorder(
-                                  borderSide:
-                                      BorderSide(color: Colors.white, width: 0),
+                                  borderSide: const BorderSide(
+                                      color: Colors.white, width: 0),
                                   borderRadius: BorderRadius.circular(20)),
                               border: OutlineInputBorder(
-                                  borderSide: BorderSide(
+                                  borderSide: const BorderSide(
                                       color: Colors.white, width: 100),
                                   borderRadius: BorderRadius.circular(20)),
                               filled: true,
@@ -111,11 +111,11 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                       ),
                     ),
-                    SizedBox(height: 10),
+                    const SizedBox(height: 10),
                     AnimatedOpacity(
                         alwaysIncludeSemantics: true,
                         opacity: _visibleLogin ? 0.0 : 1.0,
-                        duration: Duration(milliseconds: 250),
+                        duration: const Duration(milliseconds: 250),
                         child: Column(
                           children: [
                             Container(
@@ -124,7 +124,8 @@ class _LoginScreenState extends State<LoginScreen> {
                               child: PinCodeTextField(
                                 keyboardType: TextInputType.number,
                                 animationType: AnimationType.fade,
-                                animationDuration: Duration(milliseconds: 10),
+                                animationDuration:
+                                    const Duration(milliseconds: 10),
                                 enableActiveFill: true,
                                 appContext: context,
                                 length: 4,
@@ -164,11 +165,6 @@ class _LoginScreenState extends State<LoginScreen> {
                         login();
                       }
                     },
-                    child: !_visibleLogin
-                        ? Text('LOGIN',
-                            style: TextStyle(fontSize: deviceWidth * 0.05))
-                        : Text(' Request OTP ',
-                            style: TextStyle(fontSize: deviceWidth * 0.05)),
                     style: TextButton.styleFrom(
                       primary: Colors.white,
                       minimumSize:
@@ -176,8 +172,13 @@ class _LoginScreenState extends State<LoginScreen> {
                       shape: const RoundedRectangleBorder(
                         borderRadius: BorderRadius.all(Radius.circular(15)),
                       ),
-                      backgroundColor: Color(0xff05483F),
+                      backgroundColor: const Color(0xff05483F),
                     ),
+                    child: !_visibleLogin
+                        ? Text('LOGIN',
+                            style: TextStyle(fontSize: deviceWidth * 0.05))
+                        : Text(' Request OTP ',
+                            style: TextStyle(fontSize: deviceWidth * 0.05)),
                   ))
             ])));
   }
