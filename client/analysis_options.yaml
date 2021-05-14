@@ -1,0 +1,16 @@
+include: package:lint/analysis_options.yaml
+
+linter:
+  rules:
+    sized_box_for_whitespace: false
+    avoid_bool_literals_in_conditional_expressions: false
+    avoid_void_async: false
+    no_logic_in_create_state: false
+
+analyzer:
+  errors:
+    return_of_invalid_type: false
+    argument_type_not_assignable: false
+    invalid_assignment: false
+    must_call_super: false
+    prefer_if_elements_to_conditional_expressions: false
