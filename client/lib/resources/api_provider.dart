@@ -1,5 +1,8 @@
 import 'dart:convert';
 import 'package:client/dashboard_screen.dart';
+import 'package:client/models/generate_report_form_model.dart';
+import 'package:client/models/patient_list_object_mode.dart';
+import 'package:client/report_screen.dart';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' show Client;
@@ -74,6 +77,77 @@ void postPatient(BuildContext context, String name, String gender, int age,
     final data = jsonDecode(res.body);
     final status = data['msg'].toString();
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(status)));
+  } else {
+    ScaffoldMessenger.of(context)
+        .showSnackBar(const SnackBar(content: Text('Something wrong')));
+  }
+}
+
+void generateReport(BuildContext context, GenerateReport _reportObject,
+    Patient _patientObject) async {
+  final SharedPreferences localStorage = await SharedPreferences.getInstance();
+  final String userid = localStorage.getString('userId');
+  var patientid = _patientObject.id;
+  final putUrl = Uri.parse(
+      "https://nutrihelpb.herokuapp.com/patients/${userid}/${patientid}");
+
+  final jsonBody = _patientObject.gender == 'F'
+      ? jsonEncode({
+          "stats": {
+            "family_diabetes": _reportObject.familyMember,
+            "bp": _reportObject.bloodPressure,
+            "physically_active": _reportObject.physicallyActive,
+            "weight": _reportObject.weight,
+            "height": _reportObject.height,
+            "smoke": _reportObject.smoking,
+            "alcolol": _reportObject.alcohol,
+            "sleep": _reportObject.averageSleep,
+            "sound_sleep": _reportObject.soundSleep,
+            "medicine": _reportObject.medicineRegularly,
+            "junk_food": _reportObject.junkFood,
+            "stress": _reportObject.stress,
+            "pregnancies": _reportObject.pregnancies,
+            "gestational": _reportObject.gestational,
+            "urination": _reportObject.urinationFreq
+          }
+        })
+      : jsonEncode({
+          "stats": {
+            "family_diabetes": _reportObject.familyMember,
+            "bp": _reportObject.bloodPressure,
+            "physically_active": _reportObject.physicallyActive,
+            "weight": _reportObject.weight,
+            "height": _reportObject.height,
+            "smoke": _reportObject.smoking,
+            "alcolol": _reportObject.alcohol,
+            "sleep": _reportObject.averageSleep,
+            "sound_sleep": _reportObject.soundSleep,
+            "medicine": _reportObject.medicineRegularly,
+            "junk_food": _reportObject.junkFood,
+            "stress": _reportObject.stress,
+            "urination": _reportObject.urinationFreq
+          }
+        });
+
+  final res = await http.put(
+    putUrl,
+    body: jsonBody,
+    headers: <String, String>{
+      'Content-Type': 'application/json; charset=UTF-8',
+    },
+  );
+
+  if (res.statusCode == 200) {
+    final data = jsonDecode(res.body);
+    final status = data['msg'].toString();
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => ReportScreen(
+          patient: _patientObject,
+        ),
+      ),
+    );
   } else {
     ScaffoldMessenger.of(context)
         .showSnackBar(const SnackBar(content: Text('Something wrong')));
