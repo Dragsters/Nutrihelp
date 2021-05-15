@@ -1,28 +1,27 @@
-import 'package:client/generate_report_form.dart';
 import 'package:client/models/report_model.dart';
 import 'package:client/report_screen.dart';
 import 'package:client/resources/api_provider.dart';
 import 'package:client/resources/helper.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
 class RecentReportsScreen extends StatefulWidget {
-  RecentReportsScreen({Key key}) : super(key: key);
+  const RecentReportsScreen({Key key}) : super(key: key);
 
   @override
   _RecentReportsScreenState createState() => _RecentReportsScreenState();
 }
 
 class _RecentReportsScreenState extends State<RecentReportsScreen> {
-  var reports;
+  dynamic reports;
   bool _loading = true;
 
   void fetchReports() async {
     final localStorage = await SharedPreferences.getInstance();
     final userid = localStorage.getString('userId');
-    final url = Uri.parse("https://nutrihelpb.herokuapp.com/reports/${userid}");
+    final url = Uri.parse("https://nutrihelpb.herokuapp.com/reports/$userid");
 
     final res = await http.get(
       url,
@@ -54,8 +53,7 @@ class _RecentReportsScreenState extends State<RecentReportsScreen> {
   Widget build(BuildContext context) {
     final double deviceWidth = MediaQuery.of(context).size.width;
     final double deviceHeight = MediaQuery.of(context).size.height;
-    wsb(val) => SizedBox(width: deviceWidth * val);
-    hsb(val) => SizedBox(height: deviceHeight * val);
+    SizedBox hsb(val) => SizedBox(height: deviceHeight * val);
     return template(
         body: ListView(
       children: [
@@ -124,7 +122,7 @@ class _RecentReportsScreenState extends State<RecentReportsScreen> {
                                               MaterialPageRoute(
                                                 builder: (context) =>
                                                     ReportScreen(
-                                                  patientid:
+                                                      patientId:
                                                       reports[index].patientId,
                                                 ),
                                               ),
@@ -140,7 +138,7 @@ class _RecentReportsScreenState extends State<RecentReportsScreen> {
                                             deleteReport(context,
                                                 reports[index].reportId);
                                           },
-                                          child: Text(
+                                          child: const Text(
                                             'delete',
                                             style: TextStyle(color: Colors.red),
                                           ))

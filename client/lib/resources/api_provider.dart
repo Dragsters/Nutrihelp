@@ -1,16 +1,17 @@
 import 'dart:convert';
+
 import 'package:client/dashboard_screen.dart';
 import 'package:client/models/generate_report_form_model.dart';
-import 'package:client/models/patient_list_object_mode.dart';
+import 'package:client/models/patient_list_object_model.dart';
 import 'package:client/report_screen.dart';
-
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' show Client;
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ApiProvider {
   Client client = Client();
+
   dynamic auth(BuildContext context, String email, {String otp = ''}) async {
     final url = Uri.parse("https://nutrihelpb.herokuapp.com/auth");
 
@@ -87,9 +88,9 @@ void generateReport(BuildContext context, GenerateReport _reportObject,
     Patient _patientObject) async {
   final SharedPreferences localStorage = await SharedPreferences.getInstance();
   final String userid = localStorage.getString('userId');
-  var patientid = _patientObject.id;
-  final putUrl = Uri.parse(
-      "https://nutrihelpb.herokuapp.com/patients/${userid}/${patientid}");
+  final patientId = _patientObject.id;
+  final putUrl =
+      Uri.parse("https://nutrihelpb.herokuapp.com/patients/$userid/$patientId");
 
   final jsonBody = _patientObject.gender == 'F'
       ? jsonEncode({
@@ -138,13 +139,11 @@ void generateReport(BuildContext context, GenerateReport _reportObject,
   );
 
   if (res.statusCode == 200) {
-    final data = jsonDecode(res.body);
-    final status = data['msg'].toString();
     Navigator.push(
       context,
       MaterialPageRoute(
         builder: (context) => ReportScreen(
-          patientid: _patientObject.id,
+          patientId: _patientObject.id,
         ),
       ),
     );
@@ -157,8 +156,8 @@ void generateReport(BuildContext context, GenerateReport _reportObject,
 void deletePatient(BuildContext context, String patientId) async {
   final SharedPreferences localStorage = await SharedPreferences.getInstance();
   final String userId = localStorage.getString('userId');
-  final url = Uri.parse(
-      "https://nutrihelpb.herokuapp.com/patients/${userId}/${patientId}");
+  final url =
+      Uri.parse("https://nutrihelpb.herokuapp.com/patients/$userId/$patientId");
 
   final res = await http.delete(
     url,
@@ -186,8 +185,8 @@ void deletePatient(BuildContext context, String patientId) async {
 void deleteReport(BuildContext context, String reportId) async {
   final SharedPreferences localStorage = await SharedPreferences.getInstance();
   final String userId = localStorage.getString('userId');
-  final url = Uri.parse(
-      "https://nutrihelpb.herokuapp.com/reports/${userId}/${reportId}");
+  final url =
+      Uri.parse("https://nutrihelpb.herokuapp.com/reports/$userId/$reportId");
 
   final res = await http.delete(
     url,
