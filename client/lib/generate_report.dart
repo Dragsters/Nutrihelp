@@ -1,5 +1,5 @@
 import 'package:client/generate_report_form.dart';
-import 'package:client/models/patient_list_object_mode.dart';
+import 'package:client/models/patient_list_object_model.dart';
 import 'package:client/resources/helper.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -14,12 +14,12 @@ class GenerateReportScreen extends StatefulWidget {
 }
 
 class _GenerateReportScreenState extends State<GenerateReportScreen> {
-  var patients;
+  List<Patient> patients;
   bool _loading = true;
-  void fetchpatients() async {
+  void fetchPatients() async {
     final localStorage = await SharedPreferences.getInstance();
-    final userid = localStorage.getString('userId');
-    final url = Uri.parse("https://nutrihelpb.herokuapp.com/patients/$userid");
+    final userId = localStorage.getString('userId');
+    final url = Uri.parse("https://nutrihelpb.herokuapp.com/patients/$userId");
 
     final res = await http.get(
       url,
@@ -39,14 +39,13 @@ class _GenerateReportScreenState extends State<GenerateReportScreen> {
 
   @override
   void initState() {
-    fetchpatients();
+    fetchPatients();
   }
 
   @override
   Widget build(BuildContext context) {
     final double deviceWidth = MediaQuery.of(context).size.width;
     final double deviceHeight = MediaQuery.of(context).size.height;
-    SizedBox wsb(val) => SizedBox(width: deviceWidth * val);
     SizedBox hsb(val) => SizedBox(height: deviceHeight * val);
     return Container(
       decoration: const BoxDecoration(

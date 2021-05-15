@@ -6,7 +6,7 @@ import 'package:http/http.dart' show Client;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 
-class Apiprovider {
+class ApiProvider {
   Client client = Client();
   dynamic auth(BuildContext context, String email, {String otp = ''}) async {
     final url = Uri.parse("https://nutrihelpb.herokuapp.com/auth");
@@ -34,13 +34,13 @@ class Apiprovider {
     if (res.statusCode == 200) {
       final data = jsonDecode(res.body);
       final status = data['msg'].toString();
-      final userrid = data['userid'].toString();
+      final userId = data['userid'].toString();
       ScaffoldMessenger.of(context)
           .showSnackBar(SnackBar(content: Text(status)));
       if (otp != '' && data['ok'] == true) {
         final SharedPreferences isLogin = await SharedPreferences.getInstance();
         isLogin.setBool('login', true);
-        isLogin.setString('userId', userrid);
+        isLogin.setString('userId', userId);
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(

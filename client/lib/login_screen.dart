@@ -14,7 +14,7 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
-  Apiprovider apiprovider = Apiprovider();
+  ApiProvider apiProvider = ApiProvider();
   String otpString = "";
   String emailString = "";
   bool _visibleLogin = true;
@@ -22,7 +22,7 @@ class _LoginScreenState extends State<LoginScreen> {
   bool requestOtp() {
     final form = _formKey.currentState;
     if (form.validate()) {
-      apiprovider.auth(context, emailString);
+      apiProvider.auth(context, emailString);
 
       return true;
     }
@@ -30,7 +30,7 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   void login() {
-    apiprovider.auth(context, emailString, otp: otpString);
+    apiProvider.auth(context, emailString, otp: otpString);
   }
 
   @override
