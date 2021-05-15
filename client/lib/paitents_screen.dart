@@ -1,4 +1,5 @@
 import 'package:client/models/patient_list_object_mode.dart';
+import 'package:client/resources/api_provider.dart';
 import 'package:client/resources/helper.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -85,16 +86,6 @@ class _PatientsScreenState extends State<PatientsScreen> {
                       children: [
                         Padding(
                           padding: const EdgeInsets.all(8.0),
-                          child: Container(
-                            width: deviceWidth * 0.2,
-                            height: deviceWidth * 0.16,
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                color: Colors.black12),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
@@ -117,6 +108,32 @@ class _PatientsScreenState extends State<PatientsScreen> {
                                       "  ${patients[index].age.toString()} Yrs."),
                                 ],
                               ),
+                              hsb(0.01),
+                              Container(
+                                width: deviceWidth * 0.8,
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    TextButton(
+                                        onPressed: () {},
+                                        child: Text(
+                                          'generate report',
+                                          style: TextStyle(
+                                              color: Color(0xff05483f)),
+                                        )),
+                                    TextButton(
+                                        onPressed: () {
+                                          deletePatient(
+                                              context, patients[index].id);
+                                        },
+                                        child: Text(
+                                          'delete',
+                                          style: TextStyle(color: Colors.red),
+                                        ))
+                                  ],
+                                ),
+                              )
                             ],
                           ),
                         ),

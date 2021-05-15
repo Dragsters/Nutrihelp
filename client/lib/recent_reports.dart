@@ -1,4 +1,7 @@
+import 'package:client/generate_report_form.dart';
 import 'package:client/models/report_model.dart';
+import 'package:client/report_screen.dart';
+import 'package:client/resources/api_provider.dart';
 import 'package:client/resources/helper.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -31,6 +34,7 @@ class _RecentReportsScreenState extends State<RecentReportsScreen> {
     if (res.statusCode == 200) {
       setState(() {
         _loading = false;
+
         reports = parseReports(res.body);
       });
     }
@@ -43,7 +47,7 @@ class _RecentReportsScreenState extends State<RecentReportsScreen> {
   }
 
   String per(double p) {
-    return "${(p * 100).toString().substring(0, 2)} %";
+    return "${p.toString().substring(0, 4)} %";
   }
 
   @override
@@ -53,9 +57,8 @@ class _RecentReportsScreenState extends State<RecentReportsScreen> {
     wsb(val) => SizedBox(width: deviceWidth * val);
     hsb(val) => SizedBox(height: deviceHeight * val);
     return template(
-        body: Column(
+        body: ListView(
       children: [
-        hsb(0.03),
         Row(
           children: [
             Padding(
@@ -96,7 +99,7 @@ class _RecentReportsScreenState extends State<RecentReportsScreen> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  "Patient Name - ${reports[index].patientName}",
+                                  "${reports[index].patientName}",
                                   style: GoogleFonts.poppins(
                                       fontWeight: FontWeight.w500),
                                 ),
@@ -104,37 +107,46 @@ class _RecentReportsScreenState extends State<RecentReportsScreen> {
                                 Row(
                                   children: [
                                     Text(
-                                        "dibetic probability ${per(reports[index].probability)}")
+                                        "Dibetic probability ${per(reports[index].probability)}")
                                   ],
                                 ),
                                 hsb(0.01),
                                 Container(
-                                  color: Colors.black,
                                   width: deviceWidth * 0.8,
-                                  height: 1,
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(top: 8.0),
-                                  child: Container(
-                                    width: deviceWidth * 0.7,
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceEvenly,
-                                      children: [
-                                        Container(
-                                          width: deviceWidth * 0.3,
-                                          height: deviceWidth * 0.1,
-                                          child: Text('button'),
-                                        ),
-                                        Container(
-                                          width: deviceWidth * 0.3,
-                                          height: deviceWidth * 0.1,
-                                          child: Text('button'),
-                                        )
-                                      ],
-                                    ),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
+                                    children: [
+                                      TextButton(
+                                          onPressed: () {
+                                            Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                builder: (context) =>
+                                                    ReportScreen(
+                                                  patientid:
+                                                      reports[index].patientId,
+                                                ),
+                                              ),
+                                            );
+                                          },
+                                          child: const Text(
+                                            'View report',
+                                            style: TextStyle(
+                                                color: Color(0xff05483f)),
+                                          )),
+                                      TextButton(
+                                          onPressed: () {
+                                            deleteReport(context,
+                                                reports[index].reportId);
+                                          },
+                                          child: Text(
+                                            'delete',
+                                            style: TextStyle(color: Colors.red),
+                                          ))
+                                    ],
                                   ),
-                                ),
+                                )
                               ],
                             ),
                           ),

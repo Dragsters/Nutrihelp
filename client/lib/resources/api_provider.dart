@@ -144,8 +144,66 @@ void generateReport(BuildContext context, GenerateReport _reportObject,
       context,
       MaterialPageRoute(
         builder: (context) => ReportScreen(
-          patient: _patientObject,
+          patientid: _patientObject.id,
         ),
+      ),
+    );
+  } else {
+    ScaffoldMessenger.of(context)
+        .showSnackBar(const SnackBar(content: Text('Something wrong')));
+  }
+}
+
+void deletePatient(BuildContext context, String patientId) async {
+  final SharedPreferences localStorage = await SharedPreferences.getInstance();
+  final String userId = localStorage.getString('userId');
+  final url = Uri.parse(
+      "https://nutrihelpb.herokuapp.com/patients/${userId}/${patientId}");
+
+  final res = await http.delete(
+    url,
+    headers: <String, String>{
+      'Content-Type': 'application/json; charset=UTF-8',
+    },
+  );
+
+  if (res.statusCode == 200) {
+    final data = jsonDecode(res.body);
+    final status = data['msg'].toString();
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(status)));
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(
+        builder: (context) => const DashBoardScreen(),
+      ),
+    );
+  } else {
+    ScaffoldMessenger.of(context)
+        .showSnackBar(const SnackBar(content: Text('Something wrong')));
+  }
+}
+
+void deleteReport(BuildContext context, String reportId) async {
+  final SharedPreferences localStorage = await SharedPreferences.getInstance();
+  final String userId = localStorage.getString('userId');
+  final url = Uri.parse(
+      "https://nutrihelpb.herokuapp.com/reports/${userId}/${reportId}");
+
+  final res = await http.delete(
+    url,
+    headers: <String, String>{
+      'Content-Type': 'application/json; charset=UTF-8',
+    },
+  );
+
+  if (res.statusCode == 200) {
+    final data = jsonDecode(res.body);
+    final status = data['msg'].toString();
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(status)));
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(
+        builder: (context) => const DashBoardScreen(),
       ),
     );
   } else {
