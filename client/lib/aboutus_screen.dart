@@ -21,16 +21,16 @@ class AboutUsScreen extends StatelessWidget {
         style: GoogleFonts.poppins(
             fontSize: deviceWidth * 0.04, color: green, letterSpacing: 1));
     final _linkedInUrls = <String, String>{
-      'MOHIT': '',
-      'ASHUTOSH': '',
-      'SHIVANI': '',
-      'ROHAN': ''
+      'MOHIT': 'https://www.linkedin.com/in/mohit-kushwaha/',
+      'ASHUTOSH': 'https://www.linkedin.com/in/ashutosh-sahu-0623b217a/',
+      'SHIVANI': 'https://www.linkedin.com/in/shivaniraichandani/',
+      'ROHAN': 'https://www.linkedin.com/in/rohan-maran-95237b15b/'
     };
     final _githubUrls = <String, String>{
-      'MOHIT': '',
-      'ASHUTOSH': '',
-      'SHIVANI': '',
-      'ROHAN': ''
+      'MOHIT': 'https://github.com/mohit-codes',
+      'ASHUTOSH': 'https://github.com/Ashuto7h',
+      'SHIVANI': 'https://github.com/Shivani-Raichandani',
+      'ROHAN': 'https://github.com/Rohan9433'
     };
 
     // ignore: always_declare_return_types
