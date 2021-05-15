@@ -100,7 +100,7 @@ class _GenerateReportScreenState extends State<GenerateReportScreen> {
                 Container(
                   width: deviceWidth * 0.4,
                   height: deviceHeight * 0.08,
-                  child: newIconButton(deviceWidth, deviceHeight),
+                  child: newIconButton(context, deviceWidth, deviceHeight),
                 ),
               ],
             ),
@@ -110,78 +110,75 @@ class _GenerateReportScreenState extends State<GenerateReportScreen> {
                     width: 200,
                     height: 200,
                     child: const Center(child: CircularProgressIndicator()))
-                : Container(
-                    width: deviceWidth * 0.9,
-                    height: deviceHeight * 0.5,
-                    child: ListView.builder(
-                      itemCount: patients.length,
-                      itemBuilder: (context, index) => GestureDetector(
-                        onTap: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => GenerateReportForm(
-                                        patient: patients[index],
-                                      )));
-                        },
-                        child: Padding(
-                          padding: const EdgeInsets.only(
-                              left: 10.0, right: 10, bottom: 10),
-                          child: Card(
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(15)),
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Row(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Container(
-                                      width: deviceWidth * 0.2,
-                                      height: deviceWidth * 0.16,
-                                      decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(10),
-                                          color: Colors.black12),
-                                    ),
+                : ListView.builder(
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemCount: patients.length,
+                    itemBuilder: (context, index) => GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => GenerateReportForm(
+                                      patient: patients[index],
+                                    )));
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.only(
+                            left: 10.0, right: 10, bottom: 10),
+                        child: Card(
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(15)),
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Container(
+                                    width: deviceWidth * 0.2,
+                                    height: deviceWidth * 0.16,
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(10),
+                                        color: Colors.black12),
                                   ),
-                                  Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          patients[index].name,
-                                          style: GoogleFonts.poppins(
-                                              fontWeight: FontWeight.w500),
-                                        ),
-                                        hsb(0.01),
-                                        Row(
-                                          children: [
-                                            Text(patients[index].gender == "M"
-                                                ? "Male  "
-                                                : "Female  "),
-                                            const Icon(
-                                              Icons.circle,
-                                              size: 6,
-                                            ),
-                                            Text(
-                                                "  ${patients[index].age.toString()} Yrs."),
-                                          ],
-                                        ),
-                                      ],
-                                    ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        patients[index].name,
+                                        style: GoogleFonts.poppins(
+                                            fontWeight: FontWeight.w500),
+                                      ),
+                                      hsb(0.01),
+                                      Row(
+                                        children: [
+                                          Text(patients[index].gender == "M"
+                                              ? "Male  "
+                                              : "Female  "),
+                                          const Icon(
+                                            Icons.circle,
+                                            size: 6,
+                                          ),
+                                          Text(
+                                              "  ${patients[index].age.toString()} Yrs."),
+                                        ],
+                                      ),
+                                    ],
                                   ),
-                                ],
-                              ),
+                                ),
+                              ],
                             ),
                           ),
                         ),
                       ),
                     ),
-                  )
+                  ),
           ],
         ),
       ),
