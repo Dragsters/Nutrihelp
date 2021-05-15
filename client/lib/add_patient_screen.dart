@@ -5,14 +5,14 @@ import 'package:flutter/services.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class AddPaitentScreen extends StatefulWidget {
-  AddPaitentScreen({Key key}) : super(key: key);
+class AddPatientScreen extends StatefulWidget {
+  const AddPatientScreen({Key key}) : super(key: key);
 
   @override
-  _AddPaitentScreenState createState() => _AddPaitentScreenState();
+  _AddPatientScreenState createState() => _AddPatientScreenState();
 }
 
-class _AddPaitentScreenState extends State<AddPaitentScreen> {
+class _AddPatientScreenState extends State<AddPatientScreen> {
   final _form = GlobalKey<FormState>();
   String _name;
   String _gender;
@@ -32,8 +32,8 @@ class _AddPaitentScreenState extends State<AddPaitentScreen> {
   Widget build(BuildContext context) {
     final double deviceWidth = MediaQuery.of(context).size.width;
     final double deviceHeight = MediaQuery.of(context).size.height;
-    Wsb(val) => SizedBox(width: deviceWidth * val);
-    Hsb(val) => SizedBox(height: deviceHeight * val);
+    SizedBox wsb(val) => SizedBox(width: deviceWidth * val);
+    SizedBox hsb(val) => SizedBox(height: deviceHeight * val);
 
     return template(
         body: Form(
@@ -62,7 +62,7 @@ class _AddPaitentScreenState extends State<AddPaitentScreen> {
                       style: GoogleFonts.poppins(fontSize: deviceWidth * 0.06),
                     ),
                   ),
-                  Hsb(0.02),
+                  hsb(0.02),
                   Container(
                       width: deviceWidth * 0.9,
                       child: TextFormField(
@@ -72,7 +72,7 @@ class _AddPaitentScreenState extends State<AddPaitentScreen> {
                         decoration: customFieldDecoration(
                             deviceWidth: deviceWidth, hint: 'Name'),
                       )),
-                  Hsb(0.02),
+                  hsb(0.02),
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -92,7 +92,7 @@ class _AddPaitentScreenState extends State<AddPaitentScreen> {
                               deviceWidth: deviceWidth, hint: 'Age'),
                         ),
                       ),
-                      Wsb(0.05),
+                      wsb(0.05),
                       Container(
                         height: deviceHeight * 0.07,
                         width: deviceWidth * 0.42,
@@ -119,7 +119,7 @@ class _AddPaitentScreenState extends State<AddPaitentScreen> {
                       ),
                     ],
                   ),
-                  Hsb(0.02),
+                  hsb(0.02),
                   Container(
                     width: deviceWidth * 0.9,
                     child: TextFormField(
@@ -134,7 +134,7 @@ class _AddPaitentScreenState extends State<AddPaitentScreen> {
                           deviceWidth: deviceWidth, hint: 'Contact Number'),
                     ),
                   ),
-                  Hsb(0.02),
+                  hsb(0.02),
                   TextButton(
                     onPressed: _submit,
                     style: TextButton.styleFrom(

@@ -13,13 +13,13 @@ class GenerateReportForm extends StatefulWidget {
 
   @override
   _GenerateReportFormState createState() =>
-      _GenerateReportFormState(this.patient);
+      _GenerateReportFormState(patient);
 }
 
 class _GenerateReportFormState extends State<GenerateReportForm> {
   Patient _patient;
-  _GenerateReportFormState(Patient _temppatient) {
-    this._patient = _temppatient;
+  _GenerateReportFormState(Patient _tempPatient) {
+    _patient = _tempPatient;
   }
 
   final _form = GlobalKey<FormState>();
@@ -36,6 +36,8 @@ class _GenerateReportFormState extends State<GenerateReportForm> {
 
   @override
   Widget build(BuildContext context) {
+    // ignore: avoid_print
+    print(_patient);
     final double deviceWidth = MediaQuery.of(context).size.width;
     final double deviceHeight = MediaQuery.of(context).size.height;
     return Container(
