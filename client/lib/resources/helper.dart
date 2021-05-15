@@ -1,8 +1,9 @@
+import 'package:client/add_patient_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 InputDecoration customFieldDecoration(
-    {@required double deviceWidth, @required String hint}) {
+    {double deviceWidth, String hint, String sufftxt}) {
   return InputDecoration(
     focusColor: Colors.white,
     hoverColor: Colors.white,
@@ -10,6 +11,7 @@ InputDecoration customFieldDecoration(
     labelStyle: const TextStyle(
       color: Colors.black,
     ),
+    suffixText: sufftxt,
     floatingLabelBehavior: FloatingLabelBehavior.always,
     focusedBorder: UnderlineInputBorder(
         borderSide: const BorderSide(
@@ -45,9 +47,13 @@ Widget template({Widget body}) {
       ));
 }
 
-IconButton newIconButton(double deviceWidth, double deviceHeight) {
+IconButton newIconButton(
+    BuildContext context, double deviceWidth, double deviceHeight) {
   return IconButton(
-    onPressed: () {},
+    onPressed: () {
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => AddPaitentScreen()));
+    },
     icon: Container(
         width: deviceWidth * 0.3,
         height: deviceHeight * 0.08,
