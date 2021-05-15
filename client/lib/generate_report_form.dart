@@ -1,9 +1,11 @@
 import 'package:client/models/generate_report_form_model.dart';
-import 'package:client/models/patient_list_object_model.dart';
+import 'package:client/models/patient_list_object_mode.dart';
+import 'package:client/resources/api_provider.dart';
 import 'package:client/resources/helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class GenerateReportForm extends StatefulWidget {
   final Patient patient;
@@ -23,6 +25,15 @@ class _GenerateReportFormState extends State<GenerateReportForm> {
   final _form = GlobalKey<FormState>();
   final GenerateReport _reportObj = GenerateReport();
 
+  void postGenerate(Patient _tempPatient) {
+    FocusManager.instance.primaryFocus.unfocus();
+    if (_form.currentState.validate()) {
+      _form.currentState.save();
+      generateReport(context, _reportObj, _tempPatient);
+      // _form.currentState.reset();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     // ignore: avoid_print
@@ -38,7 +49,7 @@ class _GenerateReportFormState extends State<GenerateReportForm> {
       child: Scaffold(
         resizeToAvoidBottomInset: false,
         backgroundColor: Colors.transparent,
-        body: FormBuilder(
+        body: Form(
           key: _form,
           child: ListView(
             children: [
@@ -57,8 +68,9 @@ class _GenerateReportFormState extends State<GenerateReportForm> {
                             height: deviceHeight * 0.05,
                             width: deviceWidth * 0.9,
                             child: Text(
-                              'Fill the details :-',
-                              style: TextStyle(fontSize: deviceWidth * 0.06),
+                              'Enter the patient details :-',
+                              style: GoogleFonts.poppins(
+                                  fontSize: deviceWidth * 0.06),
                             ),
                           ),
                         ],
@@ -66,10 +78,10 @@ class _GenerateReportFormState extends State<GenerateReportForm> {
                       Row(
                         children: [
                           Container(
-                            // height: deviceHeight * 0.12,
                             width: deviceWidth * 0.9,
                             child: TextFormField(
-                              onSaved: (val) => _reportObj.name = val,
+                              initialValue: _patient.name,
+                              readOnly: true,
                               decoration: customFieldDecoration(
                                   deviceWidth: deviceWidth, hint: 'Name'),
                             ),
@@ -81,45 +93,32 @@ class _GenerateReportFormState extends State<GenerateReportForm> {
                         height: deviceHeight * 0.01,
                       ),
                       Container(
-                        // height: deviceHeight * 0.12,
                         width: deviceWidth * 0.9,
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Container(
-                              // height: deviceHeight * 0.12,
                               width: deviceWidth * 0.42,
                               child: TextFormField(
+                                initialValue: _patient.age.toString(),
                                 keyboardType: TextInputType.number,
-                                onSaved: (val) =>
-                                    _reportObj.age = int.parse(val),
+                                readOnly: true,
                                 decoration: customFieldDecoration(
                                     deviceWidth: deviceWidth, hint: 'Age'),
                               ),
                             ),
                             Container(
-                              // height: deviceHeight * 0.1,
                               width: deviceWidth * 0.42,
-                              child: DropdownButtonFormField(
-                                  elevation: 0,
-                                  decoration: customFieldDecoration(
-                                      deviceWidth: deviceWidth, hint: 'Gender'),
-                                  items: ['male', 'female']
-                                      .map<DropdownMenuItem<String>>(
-                                    (String val) {
-                                      return DropdownMenuItem(
-                                        value: val,
-                                        child: Text(val),
-                                      );
-                                    },
-                                  ).toList(),
-                                  onChanged: (val) {
-                                    setState(() {
-                                      _reportObj.gender = val.toString();
-                                    });
-                                  }),
-                            ),
+                              child: TextFormField(
+                                initialValue:
+                                    _patient.gender == "M" ? "male" : "female",
+                                keyboardType: TextInputType.number,
+                                readOnly: true,
+                                decoration: customFieldDecoration(
+                                    deviceWidth: deviceWidth, hint: 'Gender'),
+                              ),
+                            )
                           ],
                         ),
                       ),
@@ -137,9 +136,10 @@ class _GenerateReportFormState extends State<GenerateReportForm> {
                                     deviceWidth: deviceWidth,
                                     hint: 'Any family member diabetic'),
                                 name: 'family_member',
-                                onSaved: (val) => _reportObj.familyMember = val,
-                                onChanged: (val) =>
-                                    _reportObj.familyMember = val,
+                                onChanged: (val) {
+                                  _reportObj.familyMember =
+                                      val == 'Yes' ? true : false;
+                                },
                                 validator: FormBuilderValidators.compose(
                                     [FormBuilderValidators.required(context)]),
                                 options: [
@@ -162,18 +162,14 @@ class _GenerateReportFormState extends State<GenerateReportForm> {
                       Row(
                         children: [
                           Container(
-                              // height: deviceHeight * 0.1,
                               width: deviceWidth * 0.9,
                               child: DropdownButtonFormField(
                                   elevation: 0,
                                   decoration: customFieldDecoration(
                                       deviceWidth: deviceWidth,
                                       hint: 'Physically Active'),
-                                  items: [
-                                    'less than half hour',
-                                    'more than half hour',
-                                    'one hour or more'
-                                  ].map<DropdownMenuItem<String>>(
+                                  items: ['no', 'low', 'mild', 'high']
+                                      .map<DropdownMenuItem<String>>(
                                     (String val) {
                                       return DropdownMenuItem(
                                         value: val,
@@ -192,32 +188,38 @@ class _GenerateReportFormState extends State<GenerateReportForm> {
                         height: deviceHeight * 0.02,
                       ),
                       Container(
-                        // height: deviceHeight * 0.12,
                         width: deviceWidth * 0.9,
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Container(
-                              // height: deviceHeight * 0.12,
                               width: deviceWidth * 0.42,
                               child: TextFormField(
-                                keyboardType: TextInputType.number,
-                                onSaved: (val) =>
-                                    _reportObj.weight = int.parse(val),
-                                decoration: customFieldDecoration(
-                                    deviceWidth: deviceWidth, hint: 'Weight'),
-                              ),
+                                  keyboardType: TextInputType.number,
+                                  onChanged: (val) {
+                                    setState(() {
+                                      _reportObj.weight = int.parse(val);
+                                    });
+                                  },
+                                  decoration: customFieldDecoration(
+                                      deviceWidth: deviceWidth,
+                                      hint: 'Weight',
+                                      sufftxt: 'kg')),
                             ),
                             Container(
-                                // height: deviceHeight * 0.1,
                                 width: deviceWidth * 0.42,
                                 child: TextFormField(
                                   keyboardType: TextInputType.number,
-                                  onSaved: (val) =>
-                                      _reportObj.height = double.parse(val),
+                                  onChanged: (val) {
+                                    setState(() {
+                                      _reportObj.height = double.parse(val);
+                                    });
+                                  },
                                   decoration: customFieldDecoration(
-                                      deviceWidth: deviceWidth, hint: 'Height'),
+                                      deviceWidth: deviceWidth,
+                                      hint: 'Height',
+                                      sufftxt: 'inch'),
                                 )),
                           ],
                         ),
@@ -226,27 +228,27 @@ class _GenerateReportFormState extends State<GenerateReportForm> {
                         height: deviceHeight * 0.02,
                       ),
                       Container(
-                        // height: deviceHeight * 0.12,
                         width: deviceWidth * 0.9,
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Container(
-                              // height: deviceHeight * 0.12,
                               width: deviceWidth * 0.42,
                               child: TextFormField(
                                 keyboardType: TextInputType.number,
-                                onSaved: (val) =>
-                                    _reportObj.bloodPressure = val,
+                                onChanged: (val) {
+                                  setState(() {
+                                    _reportObj.bloodPressure = int.parse(val);
+                                  });
+                                },
                                 decoration: customFieldDecoration(
-                                  deviceWidth: deviceWidth,
-                                  hint: 'Blood Pressure',
-                                ),
+                                    deviceWidth: deviceWidth,
+                                    hint: 'Blood Pressure',
+                                    sufftxt: 'mmHg'),
                               ),
                             ),
                             Container(
-                              // height: deviceHeight * 0.1,
                               width: deviceWidth * 0.42,
                               child: DropdownButtonFormField(
                                   elevation: 0,
@@ -272,7 +274,7 @@ class _GenerateReportFormState extends State<GenerateReportForm> {
                                   ).toList(),
                                   onChanged: (val) {
                                     setState(() {
-                                      _reportObj.averageSleep = val;
+                                      _reportObj.averageSleep = int.parse(val);
                                     });
                                   }),
                             ),
@@ -293,7 +295,10 @@ class _GenerateReportFormState extends State<GenerateReportForm> {
                                     deviceWidth: deviceWidth,
                                     hint: 'Smoking habits'),
                                 name: 'smoking',
-                                onSaved: (val) => _reportObj.smoking = val,
+                                onChanged: (val) {
+                                  _reportObj.smoking =
+                                      val == 'Yes' ? true : false;
+                                },
                                 validator: FormBuilderValidators.compose(
                                     [FormBuilderValidators.required(context)]),
                                 options: [
@@ -324,7 +329,10 @@ class _GenerateReportFormState extends State<GenerateReportForm> {
                                     deviceWidth: deviceWidth,
                                     hint: 'Alcohol consumer'),
                                 name: 'Alcohol',
-                                onSaved: (val) => _reportObj.alcohol = val,
+                                onChanged: (val) {
+                                  _reportObj.alcohol =
+                                      val == 'Yes' ? true : false;
+                                },
                                 validator: FormBuilderValidators.compose(
                                     [FormBuilderValidators.required(context)]),
                                 options: [
@@ -355,7 +363,10 @@ class _GenerateReportFormState extends State<GenerateReportForm> {
                                     deviceWidth: deviceWidth,
                                     hint: 'Sound sleep'),
                                 name: 'sleep',
-                                onSaved: (val) => _reportObj.soundSleep = val,
+                                onChanged: (val) {
+                                  _reportObj.soundSleep =
+                                      val == 'Yes' ? true : false;
+                                },
                                 validator: FormBuilderValidators.compose(
                                     [FormBuilderValidators.required(context)]),
                                 options: [
@@ -386,8 +397,10 @@ class _GenerateReportFormState extends State<GenerateReportForm> {
                                     deviceWidth: deviceWidth,
                                     hint: 'Taking any medicine regularly'),
                                 name: 'medicine',
-                                onSaved: (val) =>
-                                    _reportObj.medicineRegularly = val,
+                                onChanged: (val) {
+                                  _reportObj.medicineRegularly =
+                                      val == 'Yes' ? true : false;
+                                },
                                 validator: FormBuilderValidators.compose(
                                     [FormBuilderValidators.required(context)]),
                                 options: [
@@ -416,12 +429,8 @@ class _GenerateReportFormState extends State<GenerateReportForm> {
                                   decoration: customFieldDecoration(
                                       deviceWidth: deviceWidth,
                                       hint: 'How much often consume junk food'),
-                                  items: [
-                                    'Ocassionally',
-                                    'often',
-                                    'very often',
-                                    'always'
-                                  ].map<DropdownMenuItem<String>>(
+                                  items: ['no', 'low', 'mild', 'high']
+                                      .map<DropdownMenuItem<String>>(
                                     (String val) {
                                       return DropdownMenuItem(
                                         value: val,
@@ -447,18 +456,13 @@ class _GenerateReportFormState extends State<GenerateReportForm> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Container(
-                              // height: deviceHeight * 0.12,
                               width: deviceWidth * 0.42,
                               child: DropdownButtonFormField(
                                   elevation: 0,
                                   decoration: customFieldDecoration(
                                       deviceWidth: deviceWidth, hint: 'Stress'),
-                                  items: [
-                                    'not at all',
-                                    'sometime',
-                                    'very often',
-                                    'always'
-                                  ].map<DropdownMenuItem<String>>(
+                                  items: ['no', 'low', 'mild', 'high']
+                                      .map<DropdownMenuItem<String>>(
                                     (String val) {
                                       return DropdownMenuItem(
                                         value: val,
@@ -473,7 +477,6 @@ class _GenerateReportFormState extends State<GenerateReportForm> {
                                   }),
                             ),
                             Container(
-                              // height: deviceHeight * 0.1,
                               width: deviceWidth * 0.42,
                               child: DropdownButtonFormField(
                                   elevation: 0,
@@ -501,24 +504,79 @@ class _GenerateReportFormState extends State<GenerateReportForm> {
                       SizedBox(
                         height: deviceHeight * 0.02,
                       ),
+                      _patient.gender == 'F'
+                          ? Container(
+                              width: deviceWidth * 0.9,
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Container(
+                                    // height: deviceHeight * 0.12,
+                                    width: deviceWidth * 0.42,
+                                    child: TextFormField(
+                                        decoration: customFieldDecoration(
+                                            deviceWidth: deviceWidth,
+                                            hint: 'pregnancies count'),
+                                        onChanged: (val) {
+                                          setState(() {
+                                            _reportObj.pregnancies =
+                                                int.parse(val);
+                                          });
+                                        }),
+                                  ),
+                                  Container(
+                                    width: deviceWidth * 0.42,
+                                    child: DropdownButtonFormField(
+                                        elevation: 0,
+                                        decoration: customFieldDecoration(
+                                            deviceWidth: deviceWidth,
+                                            hint: 'Gestational'),
+                                        items: ['Yes', 'No']
+                                            .map<DropdownMenuItem<String>>(
+                                          (String val) {
+                                            return DropdownMenuItem(
+                                              value: val,
+                                              child: Text(val),
+                                            );
+                                          },
+                                        ).toList(),
+                                        onChanged: (val) {
+                                          setState(() {
+                                            _reportObj.gestational =
+                                                val == 'Yes' ? true : false;
+                                          });
+                                        }),
+                                  ),
+                                ],
+                              ),
+                            )
+                          : const SizedBox(width: 1),
+                      SizedBox(
+                        height: deviceHeight * 0.02,
+                      ),
                       Container(
-                        width: deviceWidth * 0.8,
+                        width: deviceWidth * 0.9,
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            MaterialButton(
-                                color: const Color(0xffA6E97C),
-                                onPressed: () {
-                                  // ignore: avoid_print
-                                  print(_reportObj);
-                                  // Navigator.push(
-                                  //   context,
-                                  //   MaterialPageRoute(
-                                  //     builder: (context) => MyHomePage(),
-                                  //   ),
-                                  // );
-                                },
-                                child: const Text('Generate')),
+                            TextButton(
+                              onPressed: () => postGenerate(_patient),
+                              style: TextButton.styleFrom(
+                                primary: Colors.white,
+                                minimumSize: Size(
+                                    deviceWidth * 0.25, deviceHeight * 0.07),
+                                shape: const RoundedRectangleBorder(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(15)),
+                                ),
+                                backgroundColor: const Color(0xff05483F),
+                              ),
+                              child: Text('Generate',
+                                  style:
+                                      TextStyle(fontSize: deviceWidth * 0.05)),
+                            )
                           ],
                         ),
                       ),

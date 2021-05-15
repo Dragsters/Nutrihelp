@@ -36,7 +36,8 @@ dependencies:
   lint: ^1.5.3
   url_launcher: ^6.0.3
   font_awesome_flutter: ^9.0.0
-
+  percent_indicator: ^3.0.1
+  flutter_neumorphic: ^3.1.0
 
 dev_dependencies:
   flutter_test:

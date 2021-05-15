@@ -1,6 +1,9 @@
 import 'package:client/aboutus_screen.dart';
 import 'package:client/add_patient_screen.dart';
 import 'package:client/generate_report.dart';
+import 'package:client/models/generate_report_form_model.dart';
+import 'package:client/paitents_screen.dart';
+import 'package:client/recent_reports.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -25,7 +28,7 @@ class DashBoardScreen extends StatelessWidget {
       Icons.person_add_alt_1,
       Icons.list,
       Icons.view_sidebar,
-      Icons.assignment,
+      Icons.assignment_outlined,
       Icons.person_pin,
       Icons.logout
     ];
@@ -34,8 +37,14 @@ class DashBoardScreen extends StatelessWidget {
         Navigator.push(context,
             MaterialPageRoute(builder: (context) => const AddPatientScreen()));
       },
-      () {},
-      () {},
+      () {
+        Navigator.push(context,
+            MaterialPageRoute(builder: (context) => RecentReportsScreen()));
+      },
+      () {
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => PatientsScreen()));
+      },
       () {
         Navigator.push(
             context,
@@ -127,28 +136,23 @@ class DashBoardScreen extends StatelessWidget {
                                 borderRadius: BorderRadius.circular(20),
                               ),
                               elevation: 3.0,
-                              child: Container(
-                                height: deviceHeight * 0.07,
-                                width: deviceWidth * 0.1,
-                                child: Column(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
-                                  children: [
-                                    IconButton(
-                                      onPressed: tilesFunctions[index],
-                                      icon: Icon(tilesIcons[index],
-                                          size: deviceWidth * 0.15),
-                                      color: const Color(0xff05483f),
-                                    ),
-                                    Text(
-                                      tilesTitle[index],
-                                      style: TextStyle(
-                                          color: const Color(0xff05483f),
-                                          fontSize: deviceWidth * 0.04,
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                  ],
-                                ),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Icon(tilesIcons[index],
+                                      size: deviceWidth * 0.15,
+                                      color: const Color(0xff05483f)),
+                                  SizedBox(
+                                    height: deviceHeight * 0.02,
+                                  ),
+                                  Text(
+                                    tilesTitle[index],
+                                    style: TextStyle(
+                                        color: const Color(0xff05483f),
+                                        fontSize: deviceWidth * 0.04,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                ],
                               ),
                             ));
                       }),
