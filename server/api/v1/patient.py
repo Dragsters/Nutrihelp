@@ -1,6 +1,6 @@
 import bson
 from bson.objectid import ObjectId
-from flask import json, request, jsonify
+from flask import request, jsonify
 from bson.json_util import dumps
 from flask.wrappers import Response
 from flask.blueprints import Blueprint

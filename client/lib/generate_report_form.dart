@@ -1,5 +1,5 @@
 import 'package:client/models/generate_report_form_model.dart';
-import 'package:client/models/patient_list_object_mode.dart';
+import 'package:client/models/patient_list_object_model.dart';
 import 'package:client/resources/api_provider.dart';
 import 'package:client/resources/helper.dart';
 import 'package:flutter/material.dart';
@@ -12,14 +12,13 @@ class GenerateReportForm extends StatefulWidget {
   const GenerateReportForm({this.patient});
 
   @override
-  _GenerateReportFormState createState() =>
-      _GenerateReportFormState(this.patient);
+  _GenerateReportFormState createState() => _GenerateReportFormState(patient);
 }
 
 class _GenerateReportFormState extends State<GenerateReportForm> {
   Patient _patient;
-  _GenerateReportFormState(Patient _temppatient) {
-    this._patient = _temppatient;
+  _GenerateReportFormState(Patient _tempPatient) {
+    _patient = _tempPatient;
   }
 
   final _form = GlobalKey<FormState>();
@@ -36,6 +35,8 @@ class _GenerateReportFormState extends State<GenerateReportForm> {
 
   @override
   Widget build(BuildContext context) {
+    // ignore: avoid_print
+    print(_patient);
     final double deviceWidth = MediaQuery.of(context).size.width;
     final double deviceHeight = MediaQuery.of(context).size.height;
     return Container(

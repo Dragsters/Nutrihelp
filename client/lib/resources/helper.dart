@@ -52,7 +52,7 @@ IconButton newIconButton(
   return IconButton(
     onPressed: () {
       Navigator.push(
-          context, MaterialPageRoute(builder: (context) => AddPaitentScreen()));
+          context, MaterialPageRoute(builder: (context) => AddPatientScreen()));
     },
     icon: Container(
         width: deviceWidth * 0.3,

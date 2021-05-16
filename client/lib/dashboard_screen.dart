@@ -1,3 +1,4 @@
+import 'package:client/aboutus_screen.dart';
 import 'package:client/add_patient_screen.dart';
 import 'package:client/generate_report.dart';
 import 'package:client/models/generate_report_form_model.dart';
@@ -34,7 +35,7 @@ class DashBoardScreen extends StatelessWidget {
     final tilesFunctions = [
       () {
         Navigator.push(context,
-            MaterialPageRoute(builder: (context) => AddPaitentScreen()));
+            MaterialPageRoute(builder: (context) => const AddPatientScreen()));
       },
       () {
         Navigator.push(context,
@@ -50,7 +51,10 @@ class DashBoardScreen extends StatelessWidget {
             MaterialPageRoute(
                 builder: (context) => const GenerateReportScreen()));
       },
-      () {},
+      () {
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => AboutUsScreen()));
+      },
       () async {
         final SharedPreferences isLogin = await SharedPreferences.getInstance();
         isLogin.setBool('login', false);

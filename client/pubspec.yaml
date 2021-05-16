@@ -34,6 +34,8 @@ dependencies:
   shared_preferences: ^2.0.5
   flutter_form_builder: ^6.0.0
   lint: ^1.5.3
+  url_launcher: ^6.0.3
+  font_awesome_flutter: ^9.0.0
   percent_indicator: ^3.0.1
   flutter_neumorphic: ^3.1.0
 
@@ -79,5 +81,7 @@ flutter:
   #       - asset: fonts/TrajanPro_Bold.ttf
   #         weight: 700
   #
+
+
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages

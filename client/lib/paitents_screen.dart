@@ -1,4 +1,4 @@
-import 'package:client/models/patient_list_object_mode.dart';
+import 'package:client/models/patient_list_object_model.dart';
 import 'package:client/resources/api_provider.dart';
 import 'package:client/resources/helper.dart';
 import 'package:flutter/material.dart';
