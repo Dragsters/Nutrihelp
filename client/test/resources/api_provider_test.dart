@@ -1,8 +1,8 @@
-import 'package:client/resources/api_provider.dart';
-import 'package:flutter_test/flutter_test.dart';
-import 'package:http/http.dart';
-import 'package:http/testing.dart';
-import 'dart:convert';
+// import 'package:client/resources/api_provider.dart';
+// import 'package:flutter_test/flutter_test.dart';
+// import 'package:http/http.dart';
+// import 'package:http/testing.dart';
+// import 'dart:convert';
 
 // https://medium.com/codechai/mocking-http-request-in-flutter-c2596eea55f2
 // https://github.com/flutter-devs/flutter_mvvm_demo/blob/master/lib/view%20models/movie_list_view_model.dart
