@@ -11,25 +11,28 @@ import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ReportScreen extends StatefulWidget {
-  final String patientid;
-  ReportScreen({this.patientid});
+  final String patientId;
+
+  const ReportScreen({this.patientId});
 
   @override
-  _ReportScreenState createState() => _ReportScreenState(this.patientid);
+  _ReportScreenState createState() => _ReportScreenState(patientId);
 }
 
 class _ReportScreenState extends State<ReportScreen> {
-  _ReportScreenState(String _temppatientid) {
-    this._patientid = _temppatientid;
+  _ReportScreenState(String _tempPatientId) {
+    _patientId = _tempPatientId;
   }
-  String _patientid;
+
+  String _patientId;
   bool _loading = true;
-  var report;
+  dynamic report;
+
   void fetchReport() async {
     final localStorage = await SharedPreferences.getInstance();
     final userid = localStorage.getString('userId');
     final url = Uri.parse(
-        "https://nutrihelpb.herokuapp.com/reports/diabetes/${userid}/${_patientid}");
+        "https://nutrihelpb.herokuapp.com/reports/diabetes/$userid/$_patientId");
     final res = await http.get(
       url,
       headers: <String, String>{
@@ -55,8 +58,7 @@ class _ReportScreenState extends State<ReportScreen> {
   Widget build(BuildContext context) {
     final double deviceWidth = MediaQuery.of(context).size.width;
     final double deviceHeight = MediaQuery.of(context).size.height;
-    wsb(val) => SizedBox(width: deviceWidth * val);
-    hsb(val) => SizedBox(height: deviceHeight * val);
+    SizedBox hsb(val) => SizedBox(height: deviceHeight * val);
     return template(
         body: ListView(
       children: [
@@ -143,7 +145,7 @@ class _ReportScreenState extends State<ReportScreen> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
-                      Icon(Icons.arrow_back_ios),
+                      const Icon(Icons.arrow_back_ios),
                       Text('Back',
                           style: TextStyle(fontSize: deviceWidth * 0.05)),
                     ],

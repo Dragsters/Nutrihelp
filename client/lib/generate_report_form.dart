@@ -9,6 +9,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 class GenerateReportForm extends StatefulWidget {
   final Patient patient;
+
   const GenerateReportForm({this.patient});
 
   @override
@@ -17,6 +18,7 @@ class GenerateReportForm extends StatefulWidget {
 
 class _GenerateReportFormState extends State<GenerateReportForm> {
   Patient _patient;
+
   _GenerateReportFormState(Patient _tempPatient) {
     _patient = _tempPatient;
   }

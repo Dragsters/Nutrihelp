@@ -51,8 +51,8 @@ IconButton newIconButton(
     BuildContext context, double deviceWidth, double deviceHeight) {
   return IconButton(
     onPressed: () {
-      Navigator.push(
-          context, MaterialPageRoute(builder: (context) => AddPatientScreen()));
+      Navigator.push(context,
+          MaterialPageRoute(builder: (context) => const AddPatientScreen()));
     },
     icon: Container(
         width: deviceWidth * 0.3,
