@@ -13,27 +13,25 @@ FutureBuilder<SharedPreferences> futureBuilder =
         future: SharedPreferences.getInstance(),
         builder:
             (BuildContext context, AsyncSnapshot<SharedPreferences> snapshot) {
-          if (snapshot.hasData) {
-            if (snapshot.data.getBool('login')) {
+          var hasdata = snapshot.data == null ? false : true;
+          if (hasdata) {
+            var islogin = snapshot.data.getBool('login') == null ? false : true;
+            if (islogin) {
               return const DashBoardScreen();
             } else {
               return const LoginScreen();
             }
           } else {
-            return Container();
+            return LoginScreen();
           }
         });
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    // Future<SharedPreferences> prefs = await SharedPreferences.getInstance();
-    // bool login = prefs.getBool('login');
     return MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Health Predictor',
-        home: futureBuilder
-        // home: AboutUsScreen(),
-        );
+        home: futureBuilder);
   }
 }
