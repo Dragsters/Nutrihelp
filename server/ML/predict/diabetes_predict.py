@@ -1,6 +1,7 @@
 import pickle
 import pandas
 import numpy
+import random
 from sklearn.preprocessing import StandardScaler
 
 
@@ -166,8 +167,9 @@ class Diabetes:
         knc_model = pickle.load(open(file, 'rb'))
         print(self.df.values)
         result = knc_model.predict_proba(self.df)
-        perc = result[0][1]
-        perc = (1/11 + perc) if perc < 10 else (perc -
-                                                1/13) if perc > 90 else perc
+        perc = result[0][1] * 100
+        rand = random.randint(1, 50)/10
+        perc = (rand + perc) if perc < 10 else (perc -
+                                                rand) if perc > 90 else perc
         print('result ', perc)
-        return perc*100
+        return perc
