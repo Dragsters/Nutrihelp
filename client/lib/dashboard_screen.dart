@@ -1,8 +1,7 @@
 import 'package:client/aboutus_screen.dart';
 import 'package:client/add_patient_screen.dart';
 import 'package:client/generate_report.dart';
-import 'package:client/models/generate_report_form_model.dart';
-import 'package:client/paitents_screen.dart';
+import 'package:client/patients_screen.dart';
 import 'package:client/recent_reports.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
@@ -38,12 +37,14 @@ class DashBoardScreen extends StatelessWidget {
             MaterialPageRoute(builder: (context) => const AddPatientScreen()));
       },
       () {
-        Navigator.push(context,
-            MaterialPageRoute(builder: (context) => RecentReportsScreen()));
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => const RecentReportsScreen()));
       },
       () {
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) => PatientsScreen()));
+        Navigator.push(context,
+            MaterialPageRoute(builder: (context) => const PatientsScreen()));
       },
       () {
         Navigator.push(

@@ -3,19 +3,20 @@ import 'package:client/resources/api_provider.dart';
 import 'package:client/resources/helper.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
 class PatientsScreen extends StatefulWidget {
-  PatientsScreen({Key key}) : super(key: key);
+  const PatientsScreen({Key key}) : super(key: key);
 
   @override
   _PatientsScreenState createState() => _PatientsScreenState();
 }
 
 class _PatientsScreenState extends State<PatientsScreen> {
-  var patients;
+  dynamic patients;
   bool _loading = true;
+
   void fetchpatients() async {
     final localStorage = await SharedPreferences.getInstance();
     final userid = localStorage.getString('userId');
@@ -46,8 +47,7 @@ class _PatientsScreenState extends State<PatientsScreen> {
   Widget build(BuildContext context) {
     final double deviceWidth = MediaQuery.of(context).size.width;
     final double deviceHeight = MediaQuery.of(context).size.height;
-    wsb(val) => SizedBox(width: deviceWidth * val);
-    hsb(val) => SizedBox(height: deviceHeight * val);
+    SizedBox hsb(val) => SizedBox(height: deviceHeight * val);
     return template(
         body: ListView(children: [
       Row(
@@ -117,7 +117,7 @@ class _PatientsScreenState extends State<PatientsScreen> {
                                   children: [
                                     TextButton(
                                         onPressed: () {},
-                                        child: Text(
+                                        child: const Text(
                                           'generate report',
                                           style: TextStyle(
                                               color: Color(0xff05483f)),
@@ -127,7 +127,7 @@ class _PatientsScreenState extends State<PatientsScreen> {
                                           deletePatient(
                                               context, patients[index].id);
                                         },
-                                        child: Text(
+                                        child: const Text(
                                           'delete',
                                           style: TextStyle(color: Colors.red),
                                         ))

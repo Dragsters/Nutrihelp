@@ -4,27 +4,28 @@ import 'package:client/dashboard_screen.dart';
 import 'package:client/models/patient_list_object_model.dart';
 import 'package:client/models/report_model.dart';
 import 'package:client/resources/helper.dart';
+import 'package:client/resources/tips.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
 import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class ReportScreen extends StatefulWidget {
-  final String patientId;
+class ViewReportScreen extends StatefulWidget {
+  final String reportId;
 
-  const ReportScreen({this.patientId});
+  const ViewReportScreen({this.reportId});
 
   @override
-  _ReportScreenState createState() => _ReportScreenState(patientId);
+  _ViewReportScreenState createState() => _ViewReportScreenState(reportId);
 }
 
-class _ReportScreenState extends State<ReportScreen> {
-  _ReportScreenState(String _tempPatientId) {
-    _patientId = _tempPatientId;
+class _ViewReportScreenState extends State<ViewReportScreen> {
+  _ViewReportScreenState(String _tempreportId) {
+    _reportId = _tempreportId;
   }
 
-  String _patientId;
+  String _reportId;
   bool _loading = true;
   dynamic report;
 
@@ -32,7 +33,8 @@ class _ReportScreenState extends State<ReportScreen> {
     final localStorage = await SharedPreferences.getInstance();
     final userid = localStorage.getString('userId');
     final url = Uri.parse(
-        "https://nutrihelpb.herokuapp.com/reports/diabetes/$userid/$_patientId");
+        "https://nutrihelpb.herokuapp.com/reports/$userid/$_reportId");
+
     final res = await http.get(
       url,
       headers: <String, String>{
@@ -111,11 +113,51 @@ class _ReportScreenState extends State<ReportScreen> {
                           ],
                         ),
                         Text(
-                          "Dibetic prediction probability of Patient ${report.patientName} is ${(report.probability).toString()} %",
+                          "Diabetic prediction probability of Patient ${report.patientName} is ${(report.probability).toString()} % .",
                           style:
                               GoogleFonts.poppins(fontSize: deviceWidth * 0.05),
                         ),
-                        hsb(0.01)
+                        hsb(0.01),
+                        report.probability > 50 == false
+                            ? Text(
+                                'Paitent is less prone to diabetes.',
+                                style: GoogleFonts.poppins(
+                                    fontSize: deviceWidth * 0.05),
+                              )
+                            : Container(
+                                width: deviceWidth * 0.9,
+                                child: Column(
+                                  children: [
+                                    Text('Some Tips for Patient',
+                                        style: GoogleFonts.poppins(
+                                            fontSize: deviceWidth * 0.05)),
+                                    Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: tips
+                                          .map((e) => Card(
+                                                  child: Padding(
+                                                padding:
+                                                    const EdgeInsets.all(8.0),
+                                                child: Column(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: [
+                                                    Text(e['heading'],
+                                                        style:
+                                                            GoogleFonts.poppins(
+                                                                fontSize:
+                                                                    deviceWidth *
+                                                                        0.05)),
+                                                    Text(e['detail'])
+                                                  ],
+                                                ),
+                                              )))
+                                          .toList(),
+                                    ),
+                                  ],
+                                ),
+                              )
                       ],
                     ),
                   ),
@@ -155,7 +197,8 @@ class _ReportScreenState extends State<ReportScreen> {
               ),
             ),
           ],
-        )
+        ),
+        hsb(0.01),
       ],
     ));
   }
