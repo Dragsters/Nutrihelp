@@ -1,4 +1,3 @@
-import 'package:client/aboutus_screen.dart';
 import 'package:client/dashboard_screen.dart';
 import 'package:client/login_screen.dart';
 import 'package:flutter/material.dart';
