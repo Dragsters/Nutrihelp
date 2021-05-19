@@ -2,6 +2,7 @@ import 'package:client/models/report_model.dart';
 import 'package:client/report_screen.dart';
 import 'package:client/resources/api_provider.dart';
 import 'package:client/resources/helper.dart';
+import 'package:client/view_report.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
@@ -21,7 +22,8 @@ class _RecentReportsScreenState extends State<RecentReportsScreen> {
   void fetchReports() async {
     final localStorage = await SharedPreferences.getInstance();
     final userid = localStorage.getString('userId');
-    final url = Uri.parse("https://nutrihelpb.herokuapp.com/reports/$userid");
+    final url =
+        Uri.parse("https://nutrihelpb.herokuapp.com/reports/$userid/recent");
 
     final res = await http.get(
       url,
@@ -46,7 +48,10 @@ class _RecentReportsScreenState extends State<RecentReportsScreen> {
   }
 
   String per(double p) {
-    return "${p.toString().substring(0, 4)} %";
+    String trimmed =
+        p.toString().length > 5 ? p.toString().substring(0, 3) : p.toString();
+
+    return "${trimmed} %";
   }
 
   @override
@@ -121,9 +126,9 @@ class _RecentReportsScreenState extends State<RecentReportsScreen> {
                                               context,
                                               MaterialPageRoute(
                                                 builder: (context) =>
-                                                    ReportScreen(
-                                                      patientId:
-                                                      reports[index].patientId,
+                                                    ViewReportScreen(
+                                                  reportId:
+                                                      reports[index].reportId,
                                                 ),
                                               ),
                                             );

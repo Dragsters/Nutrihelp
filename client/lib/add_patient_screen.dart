@@ -94,7 +94,6 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
                       ),
                       wsb(0.05),
                       Container(
-                        height: deviceHeight * 0.07,
                         width: deviceWidth * 0.42,
                         child: DropdownButtonFormField(
                             validator: FormBuilderValidators.compose(
