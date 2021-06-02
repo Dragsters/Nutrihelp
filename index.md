@@ -1,37 +1,19 @@
-## Welcome to GitHub Pages
+# Features
+- An app majorly for doctors.
+- Get real time risk predictions for disease like Diabetes.
+- Organize your patient's Data and reports.
+- Get tips on controlling high risk factors.
 
-You can use the [editor on GitHub](https://github.com/Dragsters/Nutrihelp/edit/gh-pages/index.md) to maintain and preview the content for your website in Markdown files.
+## Tech Stack
+![image](https://user-images.githubusercontent.com/53266261/120510569-2cb73d00-c3e7-11eb-86c6-70ec453273d6.png)
+![image](https://user-images.githubusercontent.com/53266261/120510751-58d2be00-c3e7-11eb-8b39-062d147a9251.png)
+![image](https://user-images.githubusercontent.com/53266261/120510819-6be58e00-c3e7-11eb-975e-1e4f5d3f870b.png)
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+## Team 
+### Ashutosh Sahu
 
-### Markdown
+### Mohit Kushwaha
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+### Shivani Raichandani
 
-```markdown
-Syntax highlighted code block
-
-# Header 1
-## Header 2
-### Header 3
-
-- Bulleted
-- List
-
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
-```
-
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
-
-### Jekyll Themes
-
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/Dragsters/Nutrihelp/settings/pages). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://docs.github.com/categories/github-pages-basics/) or [contact support](https://support.github.com/contact) and we’ll help you sort it out.
+### Rohan Maran
