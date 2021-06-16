@@ -42,7 +42,7 @@ class _LoginScreenState extends State<LoginScreen> {
             gradient: LinearGradient(
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
-                colors: [Color(0xffA6E97C), Color(0xffF4F4F4)])),
+                colors: [Color(0xFF4FC3F7), Color(0xFFE1F5FE)])),
         child: Scaffold(
             resizeToAvoidBottomInset: false,
             backgroundColor: Colors.transparent,
@@ -63,9 +63,9 @@ class _LoginScreenState extends State<LoginScreen> {
               Positioned(
                 top: deviceHeight * 0.3,
                 child: Text('Health Predictor',
-                    style: GoogleFonts.redressed(
+                    style: GoogleFonts.mcLaren(
                         textStyle: TextStyle(
-                            color: Colors.black, fontSize: deviceWidth * 0.1))),
+                            color: Colors.lightBlue[900], fontSize: deviceWidth * 0.1, fontWeight: FontWeight.bold,))),
               ),
               AnimatedPositioned(
                   top:
@@ -82,7 +82,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           child: TextFormField(
                             validator: (val) =>
                                 !EmailValidator.validate(val, true)
-                                    ? 'Enter a valid email.'
+                                    ? 'Enter a valid Email!'
                                     : null,
                             onChanged: (value) => emailString = value,
                             decoration: InputDecoration(
@@ -91,18 +91,18 @@ class _LoginScreenState extends State<LoginScreen> {
                               hintText: 'Email',
                               focusedBorder: OutlineInputBorder(
                                   borderSide: const BorderSide(
-                                      color: Colors.white, width: 0),
-                                  borderRadius: BorderRadius.circular(20)),
+                                      color: Colors.blue, width: 2),
+                                  borderRadius: BorderRadius.circular(15)),
                               enabledBorder: OutlineInputBorder(
                                   borderSide: const BorderSide(
-                                      color: Colors.white, width: 0),
-                                  borderRadius: BorderRadius.circular(20)),
+                                      color: Colors.blue, width: 2),
+                                  borderRadius: BorderRadius.circular(15)),
                               border: OutlineInputBorder(
                                   borderSide: const BorderSide(
                                       color: Colors.white, width: 100),
-                                  borderRadius: BorderRadius.circular(20)),
+                                  borderRadius: BorderRadius.circular(15)),
                               filled: true,
-                              fillColor: Colors.white,
+                              fillColor: Colors.lightBlue[50],
                               contentPadding: EdgeInsets.only(
                                 left: deviceWidth * 0.04,
                               ),
@@ -138,13 +138,15 @@ class _LoginScreenState extends State<LoginScreen> {
                                 pinTheme: PinTheme(
                                   shape: PinCodeFieldShape.box,
                                   borderRadius: BorderRadius.circular(10),
+                                  activeColor: Colors.blue,
                                   fieldWidth: deviceWidth * 0.15,
-                                  selectedFillColor: Colors.white,
+                                  selectedFillColor: Colors.lightBlue[50],
                                   // selectedColor: colors,
-                                  inactiveColor: Colors.white,
-                                  disabledColor: Colors.white,
+                                  inactiveColor: Colors.lightBlue[50],
+                                  disabledColor: Colors.lightBlue[50],
                                   borderWidth: 1.5,
-                                  inactiveFillColor: Colors.white,
+                                  inactiveFillColor: Colors.lightBlue[50],
+                                  activeFillColor: Colors.lightBlue[50],
                                 ),
                               ),
                             )
@@ -170,9 +172,9 @@ class _LoginScreenState extends State<LoginScreen> {
                       minimumSize:
                           Size(deviceWidth * 0.25, deviceHeight * 0.07),
                       shape: const RoundedRectangleBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(15)),
+                        borderRadius: BorderRadius.all(Radius.circular(12)),
                       ),
-                      backgroundColor: const Color(0xff05483F),
+                      backgroundColor: const Color(0xFF01579B),
                     ),
                     child: !_visibleLogin
                         ? Text('LOGIN',

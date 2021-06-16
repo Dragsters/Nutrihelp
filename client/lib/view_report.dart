@@ -108,7 +108,7 @@ class _ViewReportScreenState extends State<ViewReportScreen> {
                               percent: report.probability / 100,
                               center:
                                   Text("${(report.probability).toString()} %"),
-                              progressColor: Colors.green,
+                              progressColor: Colors.blue,
                             ),
                           ],
                         ),
