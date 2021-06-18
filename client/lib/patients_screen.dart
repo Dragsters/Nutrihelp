@@ -118,9 +118,9 @@ class _PatientsScreenState extends State<PatientsScreen> {
                                     TextButton(
                                         onPressed: () {},
                                         child: const Text(
-                                          'generate report',
+                                          'Generate Report',
                                           style: TextStyle(
-                                              color: Color(0xff05483f)),
+                                              color: const Color(0xFF01579B)),
                                         )),
                                     TextButton(
                                         onPressed: () {
@@ -128,7 +128,7 @@ class _PatientsScreenState extends State<PatientsScreen> {
                                               context, patients[index].id);
                                         },
                                         child: const Text(
-                                          'delete',
+                                          'Delete',
                                           style: TextStyle(color: Colors.red),
                                         ))
                                   ],

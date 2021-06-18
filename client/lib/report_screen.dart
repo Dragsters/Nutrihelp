@@ -106,7 +106,7 @@ class _ReportScreenState extends State<ReportScreen> {
                               percent: report.probability / 100,
                               center:
                                   Text("${(report.probability).toString()} %"),
-                              progressColor: Colors.green,
+                              progressColor: Colors.blue,
                             ),
                           ],
                         ),
@@ -139,7 +139,7 @@ class _ReportScreenState extends State<ReportScreen> {
                   shape: const RoundedRectangleBorder(
                     borderRadius: BorderRadius.all(Radius.circular(15)),
                   ),
-                  backgroundColor: const Color(0xff05483F),
+                  backgroundColor: const Color(0xFF01579B),
                 ),
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
