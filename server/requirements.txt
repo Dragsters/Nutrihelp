@@ -139,7 +139,7 @@ toml==0.10.2
     #   -r requirements.txt
     #   autopep8
     #   pytest
-urllib3==1.26.4
+urllib3==1.26.5
     # via
     #   -r requirements.txt
     #   requests

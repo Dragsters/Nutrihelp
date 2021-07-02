@@ -1,7 +1,5 @@
 import 'dart:convert';
-
 import 'package:client/dashboard_screen.dart';
-import 'package:client/models/patient_list_object_model.dart';
 import 'package:client/models/report_model.dart';
 import 'package:client/resources/helper.dart';
 import 'package:client/resources/tips.dart';
@@ -108,7 +106,7 @@ class _ViewReportScreenState extends State<ViewReportScreen> {
                               percent: report.probability / 100,
                               center:
                                   Text("${(report.probability).toString()} %"),
-                              progressColor: Colors.green,
+                              progressColor: Colors.blue,
                             ),
                           ],
                         ),

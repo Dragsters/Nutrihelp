@@ -16,12 +16,12 @@ class DashBoardScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     const tilesTitle = [
-      'Add patient',
-      'recent reports',
-      'patients',
-      'generate report',
-      'about us',
-      'logout'
+      'Add Patient',
+      'Recent Reports',
+      'Patients',
+      'Generate Report',
+      'About us',
+      'Logout'
     ];
     const tilesIcons = [
       Icons.person_add_alt_1,
@@ -72,7 +72,7 @@ class DashBoardScreen extends StatelessWidget {
           gradient: LinearGradient(
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
-              colors: [Color(0xffA6E97C), Color(0xffF4F4F4)])),
+              colors: [Color(0xFF4FC3F7), Color(0xFFE1F5FE)])),
       child: Scaffold(
         resizeToAvoidBottomInset: false,
         backgroundColor: Colors.transparent,
@@ -82,9 +82,9 @@ class DashBoardScreen extends StatelessWidget {
             ClipPath(
                 clipper: OvalBottomBorderClipper(),
                 child: Container(
-                  height: deviceHeight * 0.35,
+                  height: deviceHeight * 0.38,
                   width: deviceWidth,
-                  color: const Color(0xff05483f),
+                  color: const Color(0xFF01579B),
                 )),
             Positioned(
               top: deviceHeight * 0.17,
@@ -95,6 +95,7 @@ class DashBoardScreen extends StatelessWidget {
                       focusColor: Colors.white,
                       hoverColor: Colors.white,
                       hintText: 'Search',
+
                       border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(20)),
                       filled: true,
@@ -106,12 +107,13 @@ class DashBoardScreen extends StatelessWidget {
                   )),
             ),
             Positioned(
-                top: deviceHeight * 0.09,
+                top: deviceHeight * 0.08,
                 child: Text('Health Predictor',
-                    style: GoogleFonts.redressed(
+                    style: GoogleFonts.mcLaren(
                         textStyle: TextStyle(
                             color: Colors.white,
-                            fontSize: deviceWidth * 0.1)))),
+                            fontSize: deviceWidth * 0.1,
+                        fontWeight: FontWeight.bold)))),
             Column(
               children: [
                 SizedBox(
@@ -142,14 +144,15 @@ class DashBoardScreen extends StatelessWidget {
                                 children: [
                                   Icon(tilesIcons[index],
                                       size: deviceWidth * 0.15,
-                                      color: const Color(0xff05483f)),
+                                      color: const Color(0xFF0D47A1)),
                                   SizedBox(
                                     height: deviceHeight * 0.02,
                                   ),
+                                  //
                                   Text(
                                     tilesTitle[index],
                                     style: TextStyle(
-                                        color: const Color(0xff05483f),
+                                        color: const Color(0xFF0D47A1),
                                         fontSize: deviceWidth * 0.04,
                                         fontWeight: FontWeight.bold),
                                   ),
