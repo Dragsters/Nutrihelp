@@ -52,7 +52,7 @@ class _GenerateReportScreenState extends State<GenerateReportScreen> {
           gradient: LinearGradient(
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
-              colors: [Color(0xffA6E97C), Color(0xffF4F4F4)])),
+              colors: [Color(0xFF01579B), Color(0xffF4F4F4)])),
       child: Scaffold(
         resizeToAvoidBottomInset: false,
         backgroundColor: Colors.transparent,
@@ -66,7 +66,7 @@ class _GenerateReportScreenState extends State<GenerateReportScreen> {
                   width: deviceWidth * 0.9,
                   child: Text(
                     'Select Patient',
-                    style: GoogleFonts.poppins(fontSize: deviceWidth * 0.1),
+                    style: GoogleFonts.poppins(fontSize: deviceWidth * 0.12,fontWeight: FontWeight.bold,color: Colors.white),
                   ),
                 ),
               ],
@@ -84,7 +84,7 @@ class _GenerateReportScreenState extends State<GenerateReportScreen> {
                         border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(20)),
                         filled: true,
-                        fillColor: Colors.white,
+                        fillColor: Colors.lightBlue[50],
                         contentPadding: EdgeInsets.only(
                           left: deviceWidth * 0.04,
                         ),
