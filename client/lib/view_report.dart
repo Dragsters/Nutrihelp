@@ -179,7 +179,7 @@ class _ViewReportScreenState extends State<ViewReportScreen> {
                   shape: const RoundedRectangleBorder(
                     borderRadius: BorderRadius.all(Radius.circular(15)),
                   ),
-                  backgroundColor: const Color(0xff05483F),
+                  backgroundColor: const Color(0xFF01579B),
                 ),
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
