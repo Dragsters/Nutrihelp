@@ -78,4 +78,18 @@ __Note__ :
   </tr>
 </table>
     <hr>
+
+<h1 align=center> project Admins ❤️ </h1>
+
+<div align="center"><a href="https://github.com/Ashuto7h"><img src="https://avatars.githubusercontent.com/u/53266261?v=4" width=150px height=150px /></a></br> <h4 style="color:red;">Ashutosh Sahu</h4>
+
+
+## Our valuable Contributors👩‍💻👨‍💻 :
+
+<a href="https://github.com/Dragsters/Nutrihelp/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=Dragsters/Nutrihelp"/>
+</a>
+
+<hr>
+
 **Made with 💕**
