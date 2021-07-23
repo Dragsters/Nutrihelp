@@ -62,7 +62,8 @@ def get_recent_reports(userid):
         data = col.find({'_id': ObjectId(userid)},
                         {'_id': 0,
                          'patients': 0,
-                         'reports.tips': 0}, limit=5).sort([('reports.id', -1)])
+                         'reports': {'$slice': -5}
+                         })
     except bson.errors.InvalidId as e:
         return jsonify(ok=False, msg=f'invalid userid provided\n\n{e}')
 
@@ -71,7 +72,7 @@ def get_recent_reports(userid):
     return Response(response=dumps(data[0].get('reports')), mimetype='application/json')
 
 
-@bp_reports.route('/<userid>/<reportid>', methods=['GET', 'DELETE'])
+@ bp_reports.route('/<userid>/<reportid>', methods=['GET', 'DELETE'])
 def report(userid, reportid):
     try:
         query = {'_id': ObjectId(userid),

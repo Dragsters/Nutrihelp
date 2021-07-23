@@ -83,7 +83,7 @@ class Diabetes:
 
             height: float = stats.get('height')
             weight: float = stats.get('weight')
-            self.set_df('BMI', weight/(height*0.0254))
+            self.set_df('BMI', weight/(height*254))
 
             sleep: int = stats.get('sleep')
             s = 7 if sleep == None else sleep
@@ -168,7 +168,7 @@ class Diabetes:
         print(self.df.values)
         result = knc_model.predict_proba(self.df)
         perc = result[0][1] * 100
-        rand = random.randint(1, 50)/10
+        rand = random.randint(1, 1000)/100
         perc = (rand + perc) if perc < 10 else (perc -
                                                 rand) if perc > 90 else perc
         print('result ', perc)
