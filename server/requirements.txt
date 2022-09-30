@@ -63,7 +63,7 @@ jinja2==3.0.0
     # via
     #   -r requirements.txt
     #   flask
-joblib==1.0.1
+joblib==1.2.0
     # via
     #   -r requirements.txt
     #   scikit-learn
