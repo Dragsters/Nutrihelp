@@ -143,7 +143,7 @@ urllib3==1.26.5
     # via
     #   -r requirements.txt
     #   requests
-werkzeug==2.0.0
+werkzeug==2.2.3
     # via
     #   -r requirements.txt
     #   flask
