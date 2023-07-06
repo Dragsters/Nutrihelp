@@ -121,7 +121,7 @@ requests==2.25.1
     # via -r requirements.txt
 scikit-learn==0.24.2
     # via -r requirements.txt
-scipy==1.6.3
+scipy==1.10.0
     # via
     #   -r requirements.txt
     #   scikit-learn
